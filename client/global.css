@@ -1,0 +1,120 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme for 4 Bridges Insurance Company
+   * Blue-themed professional color palette
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+  */
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 213 35% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 213 35% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 35% 15%;
+
+    --primary: 213 100% 44%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 213 50% 75%;
+    --secondary-foreground: 213 35% 15%;
+
+    --muted: 213 20% 85%;
+    --muted-foreground: 213 15% 45%;
+
+    --accent: 213 100% 44%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 213 20% 90%;
+    --input: 213 10% 95%;
+    --ring: 213 100% 44%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 213 50% 95%;
+
+    --sidebar-foreground: 213 35% 15%;
+
+    --sidebar-primary: 213 100% 44%;
+
+    --sidebar-primary-foreground: 0 0% 100%;
+
+    --sidebar-accent: 213 50% 75%;
+
+    --sidebar-accent-foreground: 213 35% 15%;
+
+    --sidebar-border: 213 20% 90%;
+
+    --sidebar-ring: 213 100% 44%;
+  }
+
+  .dark {
+    --background: 213 35% 12%;
+    --foreground: 0 0% 95%;
+
+    --card: 213 35% 18%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 213 35% 18%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 213 100% 55%;
+    --primary-foreground: 213 35% 12%;
+
+    --secondary: 213 50% 40%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 213 20% 35%;
+    --muted-foreground: 213 15% 70%;
+
+    --accent: 213 100% 55%;
+    --accent-foreground: 213 35% 12%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 213 20% 30%;
+    --input: 213 20% 25%;
+    --ring: 213 100% 55%;
+    --sidebar-background: 213 35% 12%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 213 100% 55%;
+    --sidebar-primary-foreground: 213 35% 12%;
+    --sidebar-accent: 213 50% 40%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 213 20% 30%;
+    --sidebar-ring: 213 100% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
+  }
+}
