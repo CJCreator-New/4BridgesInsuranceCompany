@@ -6,6 +6,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
+  base: '/4BridgesInsuranceCompany/',
   server: {
     host: "::",
     port: 8080,
@@ -15,7 +16,7 @@ export default defineConfig(() => ({
     },
   },
   build: {
-    outDir: "dist/spa",
+    outDir: "dist",
   },
   plugins: [
     react(),
