@@ -46,7 +46,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename="/4BridgesInsuranceCompany">
+        <BrowserRouter basename="/4BridgesInsuranceCompany" future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Analytics />
           <Suspense fallback={<LoadingFallback />}>
           <Routes>
