@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
     <Layout>
       <SEO 
         title="Privacy Policy"
-        description="4 Bridges Insurance privacy policy - how we collect, use, and protect your personal information."
+        description="4 Bridges Insurance Company privacy policy - how we collect, use, and protect your personal information."
         keywords="privacy policy, data protection, personal information"
       />
       <div className="bg-gray-50 min-h-screen">
@@ -92,8 +92,8 @@ export default function PrivacyPolicy() {
               </p>
               <p className="text-gray-600">
                 Email: privacy@4bridges.com<br />
-                Phone: (555) 123-4567<br />
-                Address: 123 Main Street, New York, NY 10001
+                Phone: (800) 4BRIDGES<br />
+                Address: 456 Insurance Plaza, Suite 200, New York, NY 10001
               </p>
             </div>
           </div>

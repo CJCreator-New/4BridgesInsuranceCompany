@@ -28,9 +28,10 @@ export default function About() {
           <div className="order-2 md:order-1 hover-lift">
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/5119805/pexels-photo-5119805.jpeg"
-                alt="Happy family moments representing security"
+                src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=800&h=600&fit=crop"
+                alt="Multi-generational American family at home - representing family security, togetherness, and financial protection with 4 Bridges Insurance"
                 className="w-full h-96 object-cover rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105"
+                loading="lazy"
               />
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-blue-900 to-transparent opacity-20 hover:opacity-0 transition-opacity duration-500"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent rounded-2xl text-white">

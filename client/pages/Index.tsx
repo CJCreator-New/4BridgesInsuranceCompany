@@ -9,10 +9,15 @@ import { ExitIntentPopup } from '@/components/ExitIntentPopup';
 import About from '@/components/About';
 import Products from '@/components/Products';
 import Partners from '@/components/Partners';
+import { CoverageMap } from '@/components/CoverageMap';
 import Careers from '@/components/Careers';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import QuoteForm from '@/components/QuoteForm';
+import { WhyChooseUs } from '@/components/WhyChooseUs';
+import { HowItWorks } from '@/components/HowItWorks';
+import { CTAStrip } from '@/components/CTAStrip';
+import { MiniFAQ } from '@/components/MiniFAQ';
 
 export default function Index() {
   return (
@@ -21,12 +26,17 @@ export default function Index() {
       <Hero />
       <StatsSection />
       <TrustBadges />
+      <WhyChooseUs />
+      <HowItWorks />
+      <TestimonialCarousel />
       <About />
       <Products />
       <QuoteForm />
-      <TestimonialCarousel />
       <Partners />
+      <CoverageMap />
       <Careers />
+      <MiniFAQ />
+      <CTAStrip />
       <Contact />
       <Footer />
       <LiveChatButton />

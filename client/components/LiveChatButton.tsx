@@ -28,7 +28,7 @@ export function LiveChatButton() {
             </p>
             <p className="text-sm text-gray-500 mb-4">
               For immediate assistance, please call:<br />
-              <strong className="text-blue-600">(555) 123-4567</strong>
+              <strong className="text-blue-600">(800) 4BRIDGES</strong>
             </p>
             <button
               onClick={() => setIsOpen(false)}

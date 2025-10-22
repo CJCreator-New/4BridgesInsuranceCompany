@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -29,6 +29,12 @@ export default function QuoteForm({ insuranceType = '', compact = false }: Quote
     },
   });
 
+  useEffect(() => {
+    if (insuranceType) {
+      setValue('insuranceType', insuranceType);
+    }
+  }, [insuranceType, setValue]);
+
   const onSubmit = async (data: QuoteFormData) => {
     setSubmitStatus('loading');
     try {
@@ -50,7 +56,7 @@ export default function QuoteForm({ insuranceType = '', compact = false }: Quote
       }
     } catch (error) {
       setSubmitStatus('error');
-      setSubmitMessage('Network error. Please try again or call us directly at (555) 123-4567.');
+  setSubmitMessage('Network error. Please try again or call us directly at (800) 427-4343.');
     }
   };
 
@@ -132,7 +138,7 @@ export default function QuoteForm({ insuranceType = '', compact = false }: Quote
           <button
             type="submit"
             disabled={submitStatus === 'loading'}
-            className="w-full bg-blue-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-blue-700 transition-colors text-sm flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-lg font-bold text-base hover:from-blue-500 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 transform hover:-translate-y-0.5 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:scale-100"
           >
             {submitStatus === 'loading' ? (
               <>
@@ -211,7 +217,7 @@ export default function QuoteForm({ insuranceType = '', compact = false }: Quote
               type="tel"
               {...register('phone')}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-              placeholder="(555) 123-4567"
+              placeholder="(800) 427-4343"
             />
             {errors.phone && <p className="text-red-600 text-sm mt-1">{errors.phone.message}</p>}
           </div>
@@ -236,7 +242,7 @@ export default function QuoteForm({ insuranceType = '', compact = false }: Quote
         <button
           type="submit"
           disabled={submitStatus === 'loading'}
-          className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-green-500 hover:to-green-600 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 transform hover:-translate-y-1 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:scale-100"
         >
           {submitStatus === 'loading' ? (
             <>

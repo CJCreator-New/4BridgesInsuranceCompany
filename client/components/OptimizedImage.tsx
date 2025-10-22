@@ -28,6 +28,7 @@ export default function OptimizedImage({
         className={`w-full h-full object-cover rounded-2xl transition-opacity duration-300 ${
           isLoaded ? 'opacity-100' : 'opacity-0'
         }`}
+        role="img"
       />
     </div>
   );

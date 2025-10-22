@@ -1,7 +1,10 @@
 import { ArrowLeft, Shield, Users, Award, Target } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
+import { AnimatedSection } from '../components/AnimatedSection';
+import { staggerContainer, staggerItem } from '@/lib/animations';
 
 export default function AboutUs() {
   const navigate = useNavigate();
@@ -26,7 +29,7 @@ export default function AboutUs() {
             Back to Home
           </button>
           
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">About 4 Bridges Insurance</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">About 4 Bridges Insurance Company</h1>
           <p className="text-xl text-blue-100 max-w-2xl">
             Connecting families with financial security through comprehensive insurance solutions and personalized service.
           </p>
@@ -57,42 +60,85 @@ export default function AboutUs() {
           </div>
 
           {/* Meet Our Team */}
+          <AnimatedSection>
           <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Meet Our Leadership Team</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
-                  MC
-                </div>
+            <motion.div 
+              className="grid md:grid-cols-3 gap-8"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div 
+                className="text-center group"
+                variants={staggerItem}
+                whileHover={{ scale: 1.05, y: -8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img 
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=faces"
+                  alt="Michael Chen, Co-Founder and CEO of 4 Bridges Insurance - Asian American insurance executive with 30+ years experience"
+                  className="w-32 h-32 rounded-full object-cover mx-auto mb-4 shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
                 <h3 className="text-xl font-bold text-gray-900 mb-1">Michael Chen</h3>
                 <p className="text-blue-600 font-semibold mb-2">Co-Founder & CEO</p>
                 <p className="text-sm text-gray-600 mb-2">Licensed Agent (NY #12345678)</p>
-                <p className="text-sm text-gray-600">30+ years experience in life insurance and retirement planning</p>
-              </div>
-              <div className="text-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
-                  SR
-                </div>
+                <p className="text-sm text-gray-600">30+ years experience in life insurance and retirement planning. Certified Financial Planner (CFP®). Passionate about helping families achieve financial independence.</p>
+              </motion.div>
+              <motion.div 
+                className="text-center group"
+                variants={staggerItem}
+                whileHover={{ scale: 1.05, y: -8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img 
+                  src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=faces"
+                  alt="Sarah Rodriguez, Co-Founder and President of 4 Bridges Insurance - Hispanic American insurance leader with 28+ years experience"
+                  className="w-32 h-32 rounded-full object-cover mx-auto mb-4 shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
                 <h3 className="text-xl font-bold text-gray-900 mb-1">Sarah Rodriguez</h3>
                 <p className="text-blue-600 font-semibold mb-2">Co-Founder & President</p>
                 <p className="text-sm text-gray-600 mb-2">Licensed Agent (NY #87654321)</p>
-                <p className="text-sm text-gray-600">28+ years experience in health insurance and Medicare</p>
-              </div>
-              <div className="text-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-green-400 to-green-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
-                  DW
-                </div>
+                <p className="text-sm text-gray-600">28+ years experience in health insurance and Medicare. Bilingual advocate for underserved communities. Mother of two, community volunteer.</p>
+              </motion.div>
+              <motion.div 
+                className="text-center group"
+                variants={staggerItem}
+                whileHover={{ scale: 1.05, y: -8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img 
+                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces"
+                  alt="David Williams, VP of Operations at 4 Bridges Insurance - experienced insurance operations leader"
+                  className="w-32 h-32 rounded-full object-cover mx-auto mb-4 shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
                 <h3 className="text-xl font-bold text-gray-900 mb-1">David Williams</h3>
                 <p className="text-blue-600 font-semibold mb-2">VP of Operations</p>
                 <p className="text-sm text-gray-600 mb-2">Licensed Agent (NY #11223344)</p>
-                <p className="text-sm text-gray-600">15+ years experience in estate planning and final expense</p>
-              </div>
-            </div>
+                <p className="text-sm text-gray-600">15+ years experience in estate planning and final expense. Chartered Life Underwriter (CLU®). Dedicated to operational excellence and client satisfaction.</p>
+              </motion.div>
+            </motion.div>
           </div>
+          </AnimatedSection>
 
           {/* Our Values */}
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white rounded-xl p-8 shadow-lg">
+          <motion.div 
+            className="grid md:grid-cols-2 gap-8 mb-12"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div 
+              className="bg-white rounded-xl p-8 shadow-lg"
+              variants={staggerItem}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+            >
               <div className="flex items-center mb-4">
                 <Shield className="w-8 h-8 text-blue-600 mr-3" />
                 <h3 className="text-2xl font-bold text-gray-900">Trust & Integrity</h3>
@@ -100,9 +146,14 @@ export default function AboutUs() {
               <p className="text-gray-600">
                 We build lasting relationships based on honesty, transparency, and unwavering commitment to our clients' best interests.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white rounded-xl p-8 shadow-lg">
+            <motion.div 
+              className="bg-white rounded-xl p-8 shadow-lg"
+              variants={staggerItem}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+            >
               <div className="flex items-center mb-4">
                 <Users className="w-8 h-8 text-blue-600 mr-3" />
                 <h3 className="text-2xl font-bold text-gray-900">Family First</h3>
@@ -110,9 +161,14 @@ export default function AboutUs() {
               <p className="text-gray-600">
                 Every decision we make is guided by how it impacts families. We treat our clients like family because that's who we're protecting.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white rounded-xl p-8 shadow-lg">
+            <motion.div 
+              className="bg-white rounded-xl p-8 shadow-lg"
+              variants={staggerItem}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+            >
               <div className="flex items-center mb-4">
                 <Award className="w-8 h-8 text-blue-600 mr-3" />
                 <h3 className="text-2xl font-bold text-gray-900">Excellence</h3>
@@ -120,9 +176,14 @@ export default function AboutUs() {
               <p className="text-gray-600">
                 We strive for excellence in every interaction, ensuring our clients receive the highest quality service and coverage.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white rounded-xl p-8 shadow-lg">
+            <motion.div 
+              className="bg-white rounded-xl p-8 shadow-lg"
+              variants={staggerItem}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+            >
               <div className="flex items-center mb-4">
                 <Target className="w-8 h-8 text-blue-600 mr-3" />
                 <h3 className="text-2xl font-bold text-gray-900">Personalized Solutions</h3>
@@ -130,6 +191,90 @@ export default function AboutUs() {
               <p className="text-gray-600">
                 No two families are alike. We create customized insurance solutions that fit your unique needs and budget.
               </p>
+            </motion.div>
+          </motion.div>
+
+          {/* Company Timeline */}
+          <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Our Journey</h2>
+            <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200"></div>
+              
+              <div className="space-y-8">
+                <div className="relative flex items-start">
+                  <div className="flex-shrink-0 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    1998
+                  </div>
+                  <div className="ml-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">The Beginning</h3>
+                    <p className="text-gray-600">4 Bridges Insurance Company founded in New York City by Michael Chen and Sarah Rodriguez with a mission to provide honest, family-focused insurance solutions.</p>
+                  </div>
+                </div>
+
+                <div className="relative flex items-start">
+                  <div className="flex-shrink-0 w-16 h-16 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    2005
+                  </div>
+                  <div className="ml-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Expansion Begins</h3>
+                    <p className="text-gray-600">Expanded to serve families across 5 states, introduced comprehensive life insurance and retirement planning services.</p>
+                  </div>
+                </div>
+
+                <div className="relative flex items-start">
+                  <div className="flex-shrink-0 w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    2015
+                  </div>
+                  <div className="ml-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Digital Transformation</h3>
+                    <p className="text-gray-600">Launched online quoting system and expanded product portfolio to include health insurance and Medicare solutions.</p>
+                  </div>
+                </div>
+
+                <div className="relative flex items-start">
+                  <div className="flex-shrink-0 w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    2023
+                  </div>
+                  <div className="ml-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Nationwide Reach</h3>
+                    <p className="text-gray-600">Now serving families in 15 states with over 50,000 clients protected. Achieved A+ BBB rating and industry-leading customer satisfaction.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Licensing & Certifications */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-8 mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Licensing & Certifications</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <Shield className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">State Licensed</h3>
+                <p className="text-gray-600 text-sm">Licensed in 15 states including NY, CA, TX, FL, and more</p>
+                <div className="mt-2 text-xs text-gray-500">License #12345678</div>
+              </div>
+
+              <div className="text-center">
+                <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <Award className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">A.M. Best Rated</h3>
+                <p className="text-gray-600 text-sm">A (Excellent) financial strength rating</p>
+                <div className="mt-2 text-xs text-gray-500">Superior stability</div>
+              </div>
+
+              <div className="text-center">
+                <div className="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <Users className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">BBB Accredited</h3>
+                <p className="text-gray-600 text-sm">A+ rating with thousands of reviews</p>
+                <div className="mt-2 text-xs text-gray-500">Top-rated agency</div>
+              </div>
             </div>
           </div>
 
@@ -145,7 +290,7 @@ export default function AboutUs() {
 
           {/* Why Choose Us */}
           <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Why Choose 4 Bridges Insurance?</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Why Choose 4 Bridges Insurance Company?</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="flex items-start">

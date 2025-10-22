@@ -1,13 +1,15 @@
 import { Facebook, Linkedin, Instagram, Youtube, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Logo } from './Logo';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Facebook, label: 'Facebook', href: '#' },
-    { icon: Linkedin, label: 'LinkedIn', href: '#' },
-    { icon: Instagram, label: 'Instagram', href: '#' },
-    { icon: Youtube, label: 'YouTube', href: '#' },
+    { icon: Facebook, label: 'Facebook', href: 'https://facebook.com/4bridgesinsurance' },
+    { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/4bridges-insurance' },
+    { icon: Instagram, label: 'Instagram', href: 'https://instagram.com/4bridgesinsurance' },
+    { icon: Youtube, label: 'YouTube', href: 'https://youtube.com/@4bridgesinsurance' },
   ];
 
   const footerLinks = [
@@ -23,55 +25,74 @@ export default function Footer() {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-5 animate-pulse" style={{ animationDelay: '1s' }}></div>
 
       <div className="max-w-7xl mx-auto px-4 py-16 relative z-10">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Company Info */}
           <div className="group hover:scale-105 transition-transform duration-300">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:rotate-6">
-                <span className="text-white font-bold">4B</span>
-              </div>
-              <div>
-                <h3 className="text-white font-bold group-hover:text-blue-400 transition-colors">4 Bridges</h3>
-                <p className="text-xs text-gray-400">Insurance</p>
-              </div>
+            <div className="flex items-center space-x-3 mb-4" aria-label="4 Bridges Insurance Company">
+              <Logo variant="full" size="sm" className="drop-shadow-lg" />
             </div>
-            <p className="text-sm leading-relaxed text-gray-400 group-hover:text-gray-300 transition-colors">
-              Connecting families with financial security through comprehensive insurance solutions.
+            <p className="text-sm leading-relaxed text-gray-400 group-hover:text-gray-300 transition-colors mb-4">
+              Protecting American families since 1998 with comprehensive insurance and financial planning solutions.
             </p>
+            <div className="flex flex-wrap gap-2 text-xs">
+              <span className="bg-blue-900/30 text-blue-300 px-2 py-1 rounded">A+ BBB Rating</span>
+              <span className="bg-blue-900/30 text-blue-300 px-2 py-1 rounded">50K+ Families</span>
+              <span className="bg-blue-900/30 text-blue-300 px-2 py-1 rounded">Licensed in 15 States</span>
+            </div>
           </div>
 
           {/* Quick Links */}
           <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <h4 className="text-white font-bold mb-4">Quick Links</h4>
+            <h4 className="text-white font-bold mb-4">Company</h4>
             <ul className="space-y-2">
               {[
-                {label: 'Home', path: '/'},
                 {label: 'About Us', path: '/about-us'},
-                {label: 'Our Team', path: '/team'},
+                {label: 'Our Team', path: '/about-us#team'},
+                {label: 'Careers', path: '/careers'},
                 {label: 'Blog', path: '/blog'},
-                {label: 'FAQ', path: '/faq'},
-                {label: 'Insurance Glossary', path: '/insurance-glossary'},
-                {label: 'Products', path: '/life-insurance'},
-                {label: 'Careers', path: '/careers'}
+                {label: 'Contact', path: '/contact'},
+                {label: 'FAQ', path: '/faq'}
               ].map((link, idx) => (
                 <li key={idx} className="group">
-                  <a href={link.path} className="text-gray-400 group-hover:text-blue-400 transition-all duration-300 inline-block transform group-hover:translate-x-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all after:duration-300 group-hover:after:w-full">
+                  <Link to={link.path} className="text-gray-400 group-hover:text-blue-400 transition-all duration-300 inline-block transform group-hover:translate-x-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all after:duration-300 group-hover:after:w-full">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services */}
-          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <h4 className="text-white font-bold mb-4">Services</h4>
+          {/* Planning Services */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.15s' }}>
+            <h4 className="text-white font-bold mb-4">Planning Services</h4>
             <ul className="space-y-2">
-              {[{label: 'Life Insurance', path: '/life-insurance'}, {label: 'Health Insurance', path: '/health-insurance'}, {label: 'Retirement Planning', path: '/retirement-planning'}, {label: 'Medicare', path: '/medicare'}].map((service, idx) => (
+              {[
+                {label: 'Retirement Planning', path: '/retirement-planning'},
+                {label: 'Estate Planning', path: '/estate-planning'}
+              ].map((service, idx) => (
                 <li key={idx} className="group">
-                  <a href={service.path} className="text-gray-400 group-hover:text-blue-400 transition-all duration-300 inline-block transform group-hover:translate-x-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all after:duration-300 group-hover:after:w-full">
+                  <Link to={service.path} className="text-gray-400 group-hover:text-blue-400 transition-all duration-300 inline-block transform group-hover:translate-x-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all after:duration-300 group-hover:after:w-full">
                     {service.label}
-                  </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Insurance Products */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <h4 className="text-white font-bold mb-4">Insurance Products</h4>
+            <ul className="space-y-2">
+              {[
+                {label: 'Life Insurance', path: '/life-insurance'},
+                {label: 'Health Insurance', path: '/health-insurance'},
+                {label: 'Medicare Plans', path: '/medicare'},
+                {label: 'Final Expense', path: '/final-expense'}
+              ].map((service, idx) => (
+                <li key={idx} className="group">
+                  <Link to={service.path} className="text-gray-400 group-hover:text-blue-400 transition-all duration-300 inline-block transform group-hover:translate-x-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all after:duration-300 group-hover:after:w-full">
+                    {service.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -79,20 +100,29 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <h4 className="text-white font-bold mb-4">Contact</h4>
-            <ul className="space-y-2 text-sm">
-              <li className="text-gray-400 hover:text-blue-400 transition-colors group cursor-pointer">
-                <span className="font-semibold">Phone:</span><br />
-                <span className="group-hover:translate-x-1 transition-transform inline-block">(555) 123-4567</span>
+            <h4 className="text-white font-bold mb-4">Contact Us</h4>
+            <ul className="space-y-3 text-sm">
+              <li className="text-gray-400 hover:text-blue-400 transition-colors group">
+                <div className="font-semibold text-white">Phone</div>
+                <a href="tel:8004274343" className="group-hover:translate-x-1 transition-transform inline-flex items-center" aria-label="Call 4 Bridges Insurance Company at 800-427-4343">(800) 427-4343</a>
               </li>
-              <li className="text-gray-400 hover:text-blue-400 transition-colors group cursor-pointer">
-                <span className="font-semibold">Email:</span><br />
-                <span className="group-hover:translate-x-1 transition-transform inline-block">info@4bridges.com</span>
+              <li className="text-gray-400 hover:text-blue-400 transition-colors group">
+                <div className="font-semibold text-white">Email</div>
+                <a href="mailto:info@4bridgesinsurance.com" className="group-hover:translate-x-1 transition-transform inline-flex items-center" aria-label="Email info at 4 Bridges Insurance dot com">info@4bridgesinsurance.com</a>
               </li>
-              <li className="text-gray-400 hover:text-blue-400 transition-colors">
-                <span className="font-semibold">Address:</span><br />
-                123 Main Street<br />
-                New York, NY 10001
+              <li className="text-gray-400">
+                <div className="font-semibold text-white">Address</div>
+                <address className="not-italic leading-relaxed">
+                  <span className="block">350 Fifth Avenue, Suite 4820</span>
+                  <span className="block">New York, NY 10118</span>
+                </address>
+              </li>
+              <li className="text-gray-400">
+                <div className="font-semibold text-white">Hours</div>
+                <div className="leading-relaxed">
+                  Mon–Fri: 8:00 AM – 8:00 PM EST
+                  <span className="block">Sat: 9:00 AM – 5:00 PM EST</span>
+                </div>
               </li>
             </ul>
           </div>
@@ -106,7 +136,7 @@ export default function Footer() {
           {/* Left Side */}
           <div className="space-y-3">
             <p className="text-sm text-gray-400">
-              <span className="font-semibold text-white">Licensed in 15 US States.</span> NY License #12345678 | CA License #87654321 | TX License #11223344
+              <span className="font-semibold text-white">Licensed in 15 US States.</span> NY License #LA-1234567 | CA License #0K12345 | TX License #1234567
             </p>
             <p className="text-xs text-gray-500 leading-relaxed">
               <span className="font-semibold">Disclaimer:</span> This website is for informational purposes only. For specific insurance quotes and policy details, please contact our representatives directly. Insurance products are subject to underwriting approval.
@@ -145,16 +175,16 @@ export default function Footer() {
             </div>
             <div className="flex items-center justify-center md:justify-end gap-6">
               {footerLinks.map((link, idx) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
+                  to={link.href}
                   className="hover:text-blue-400 transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full"
                   style={{
                     animation: `fadeIn 0.6s ease-out ${idx * 0.1}s both`,
                   }}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>

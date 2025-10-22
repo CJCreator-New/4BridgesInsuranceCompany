@@ -1,39 +1,47 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { contactFormSchema, ContactFormData, ContactResponse } from '../../shared/contact';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const onSubmit = async (data: ContactFormData) => {
+    setSubmitStatus('loading');
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Here you would typically send the form data to a server
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', message: '' });
-    }, 3000);
+      const result: ContactResponse = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setSubmitMessage(result.message);
+        reset();
+      } else {
+        setSubmitStatus('error');
+        setSubmitMessage(result.message);
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setSubmitMessage('Network error. Please try again or call us directly.');
+    }
   };
 
   const contactMethods = [
     {
       icon: Phone,
       title: 'Phone',
-      detail: '(555) 123-4567',
+      detail: '(800) 4BRIDGES',
       subtext: 'Mon-Fri, 9am-6pm EST',
     },
     {
@@ -45,7 +53,7 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Address',
-      detail: '123 Main Street',
+      detail: '456 Insurance Plaza, Suite 200',
       subtext: 'New York, NY 10001',
     },
   ];
@@ -105,79 +113,120 @@ export default function Contact() {
             {/* Form */}
             <div className="animate-fade-in">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
+
+              {submitStatus === 'success' && (
+                <div data-testid="success-message" className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start">
+                  <CheckCircle className="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" />
+                  <p className="text-green-800">{submitMessage}</p>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div data-testid="error-message" className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
+                  <AlertCircle className="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" />
+                  <p className="text-red-800">{submitMessage}</p>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="group">
-                  <label className="block text-sm font-medium text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
-                    Full Name
+                  <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                    Full Name *
                   </label>
                   <input
                     type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
+                    id="contact-name"
+                    data-testid="input-name"
+                    {...register('name')}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-300 hover:border-gray-400"
                     placeholder="John Doe"
                   />
+                  {errors.name && <p data-testid="error-name" className="text-red-600 text-sm mt-1">{errors.name.message}</p>}
                 </div>
 
                 <div className="group">
-                  <label className="block text-sm font-medium text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
-                    Email Address
+                  <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                    Email Address *
                   </label>
                   <input
                     type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
+                    id="contact-email"
+                    data-testid="input-email"
+                    {...register('email')}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-300 hover:border-gray-400"
                     placeholder="john@example.com"
                   />
+                  {errors.email && <p data-testid="error-email" className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
                 </div>
 
                 <div className="group">
-                  <label className="block text-sm font-medium text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                  <label htmlFor="contact-phone" className="block text-sm font-medium text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
                     Phone Number
                   </label>
                   <input
                     type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
+                    id="contact-phone"
+                    data-testid="input-phone"
+                    {...register('phone')}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-300 hover:border-gray-400"
-                    placeholder="(555) 123-4567"
+                    placeholder="(800) 4BRIDGES"
                   />
                 </div>
 
                 <div className="group">
-                  <label className="block text-sm font-medium text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
-                    Message
+                  <label htmlFor="contact-subject" className="block text-sm font-medium text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                    Subject *
+                  </label>
+                  <select
+                    id="contact-subject"
+                    data-testid="input-subject"
+                    {...register('subject')}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-300 hover:border-gray-400"
+                  >
+                    <option value="">Select a subject</option>
+                    <option value="life-insurance">Life Insurance</option>
+                    <option value="health-insurance">Health Insurance</option>
+                    <option value="retirement-planning">Retirement Planning</option>
+                    <option value="medicare">Medicare</option>
+                    <option value="final-expense">Final Expense</option>
+                    <option value="estate-planning">Estate Planning</option>
+                    <option value="general-inquiry">General Inquiry</option>
+                  </select>
+                  {errors.subject && <p data-testid="error-subject" className="text-red-600 text-sm mt-1">{errors.subject.message}</p>}
+                </div>
+
+                <div className="group">
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-2 group-focus-within:text-blue-600 transition-colors">
+                    Message *
                   </label>
                   <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
+                    id="contact-message"
+                    data-testid="input-message"
+                    {...register('message')}
                     rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-300 resize-none hover:border-gray-400"
                     placeholder="Tell us how we can help..."
                   />
+                  {errors.message && <p data-testid="error-message" className="text-red-600 text-sm mt-1">{errors.message.message}</p>}
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-bold hover:shadow-lg hover:shadow-blue-600/50 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+                  disabled={submitStatus === 'loading'}
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-6 rounded-xl font-bold text-lg hover:from-blue-500 hover:to-blue-600 hover:shadow-xl hover:shadow-blue-600/50 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 transform hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
                 >
-                  <Send className="w-5 h-5" />
-                  Send Message
+                  {submitStatus === 'loading' ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      Send Message
+                    </>
+                  )}
                 </button>
-
-                {isSubmitted && (
-                  <div className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center font-semibold animate-pulse">
-                    ✓ Thank you! We'll get back to you soon.
-                  </div>
-                )}
               </form>
             </div>
 

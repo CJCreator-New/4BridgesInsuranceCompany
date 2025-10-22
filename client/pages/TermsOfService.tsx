@@ -10,7 +10,7 @@ export default function TermsOfService() {
     <Layout>
       <SEO 
         title="Terms of Service"
-        description="4 Bridges Insurance terms of service - legal terms and conditions for using our website and services."
+        description="4 Bridges Insurance Company terms of service - legal terms and conditions for using our website and services."
         keywords="terms of service, legal terms, conditions"
       />
       <div className="bg-gray-50 min-h-screen">
@@ -91,12 +91,12 @@ export default function TermsOfService() {
               </p>
 
               <h2 className="text-2xl font-bold text-gray-900 mb-4">10. Contact Information</h2>
-              <p className="text-gray-600">
-                For questions about these Terms of Service:<br />
-                Email: legal@4bridges.com<br />
-                Phone: (555) 123-4567<br />
-                Address: 123 Main Street, New York, NY 10001
-              </p>
+              <p className="text-gray-600 mb-4">For questions about these Terms of Service:</p>
+              <address className="not-italic text-gray-600 space-y-2">
+                <p><strong>Email:</strong> <a href="mailto:legal@4bridges.com" className="text-blue-600 hover:underline">legal@4bridges.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:8004274343" className="text-blue-600 hover:underline">(800) 4BRIDGES</a></p>
+                <p><strong>Address:</strong> 456 Insurance Plaza, Suite 200, New York, NY 10001</p>
+              </address>
             </div>
           </div>
         </section>

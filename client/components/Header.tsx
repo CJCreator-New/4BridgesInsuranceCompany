@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Menu, X, ChevronDown, Heart, Target, Stethoscope, Building2, Shield, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
+import { Logo } from './Logo';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,20 +31,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <button 
+          <button
             onClick={() => navigate('/')}
             className="flex-shrink-0 group cursor-pointer"
             aria-label="Go to home page"
           >
-            <div className="flex items-center space-x-3 transform group-hover:scale-105 transition-transform duration-300">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
-                <span className="text-white font-bold text-lg">4B</span>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">4 Bridges</h1>
-                <p className="text-xs text-blue-600">Insurance</p>
-              </div>
-            </div>
+            <Logo variant="full" size="md" className="transform group-hover:scale-105 transition-transform duration-300" />
           </button>
 
           {/* Desktop Navigation */}
@@ -71,7 +64,7 @@ export default function Header() {
                   aria-expanded={isProductsOpen}
                 >
                   Products
-                  <ChevronDown className={`w-4 h-4 ml-1 transition-transform duration-200 ${isProductsOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 ml-1 transition-transform duration-200 ${isProductsOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
                 </button>
                 {isProductsOpen && (
                   <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
@@ -81,7 +74,7 @@ export default function Header() {
                         onClick={() => navigate(product.path)}
                         className="w-full text-left px-4 py-3 hover:bg-blue-50 transition-colors duration-200 flex items-center"
                       >
-                        <div className="mr-3 text-blue-600">{product.icon}</div>
+                        <div className="mr-3 text-blue-600" aria-hidden="true">{product.icon}</div>
                         <span className="text-gray-700 hover:text-blue-600">{product.label}</span>
                       </button>
                     ))}
@@ -106,9 +99,9 @@ export default function Header() {
               aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? (
-                <X className="h-6 w-6 animate-spin" style={{ animationDuration: '0.3s' }} />
+                <X className="h-6 w-6 animate-spin" style={{ animationDuration: '0.3s' }} aria-hidden="true" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-6 w-6" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -148,7 +141,7 @@ export default function Header() {
                       animation: `slideInLeft 0.3s ease-out ${(navItems.length + index) * 0.05}s both`,
                     }}
                   >
-                    <div className="mr-3 text-blue-600">{product.icon}</div>
+                    <div className="mr-3 text-blue-600" aria-hidden="true">{product.icon}</div>
                     {product.label}
                   </button>
                 ))}

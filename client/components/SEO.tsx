@@ -15,7 +15,7 @@ export default function SEO({
   ogImage = 'https://images.pexels.com/photos/5849553/pexels-photo-5849553.jpeg',
   ogType = 'website'
 }: SEOProps) {
-  const fullTitle = `${title} | 4 Bridges Insurance`;
+  const fullTitle = `${title} | 4 Bridges Insurance Company`;
   const siteUrl = typeof window !== 'undefined' ? window.location.href : 'https://4bridges.com';
 
   return (
