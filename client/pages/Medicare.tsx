@@ -99,7 +99,7 @@ export default function Medicare() {
                   <SelectValue placeholder="Select supplement plan" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">No Supplement (Original Medicare only)</SelectItem>
+                  <SelectItem value="none">No Supplement (Original Medicare only)</SelectItem>
                   <SelectItem value="plan-f">Plan F - Comprehensive coverage</SelectItem>
                   <SelectItem value="plan-g">Plan G - Similar to F, lower premium</SelectItem>
                   <SelectItem value="plan-n">Plan N - Lower premium, higher cost-sharing</SelectItem>
