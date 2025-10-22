@@ -1,8 +1,9 @@
-import { ArrowLeft, Phone, Mail, MapPin, Clock, MessageSquare, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Phone, Mail, MapPin, Clock, MessageSquare, Send, CheckCircle, AlertCircle, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { contactFormSchema, ContactFormData, ContactResponse } from '../../shared/contact';
@@ -125,11 +126,23 @@ export default function ContactPage() {
           
           <div className="flex items-center mb-6">
             <MessageSquare className="w-12 h-12 mr-4" />
-            <h1 className="text-4xl md:text-5xl font-bold">Contact Us</h1>
+            <motion.h1 
+              className="text-4xl md:text-5xl font-bold"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Contact Us
+            </motion.h1>
           </div>
-          <p className="text-xl text-blue-100 max-w-2xl">
+          <motion.p 
+            className="text-xl text-blue-100 max-w-2xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             Ready to secure your family's future? Get in touch with our insurance experts today.
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -139,9 +152,33 @@ export default function ContactPage() {
           {/* Contact Information */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
             {contactInfo.map((info, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="flex justify-center mb-4">{info.icon}</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{info.title}</h3>
+              <motion.div 
+                key={index} 
+                className="bg-white rounded-xl p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -8 }}
+              >
+                <motion.div 
+                  className="flex justify-center mb-4"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  {info.icon}
+                </motion.div>
+                <motion.h3 
+                  className="text-lg font-semibold text-gray-900 mb-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  {info.title}
+                </motion.h3>
                 {info.link ? (
                   <a 
                     href={info.link}
@@ -156,7 +193,7 @@ export default function ContactPage() {
                   <p className="text-gray-900 font-medium mb-1">{info.details}</p>
                 )}
                 <p className="text-gray-600 text-sm">{info.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -187,80 +224,192 @@ export default function ContactPage() {
             </div>
           </div>
 
+          {/* Important Documents Banner */}
+          <motion.div
+            className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 mb-12"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-start">
+              <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <FileText className="w-8 h-8 text-amber-600 mr-4 flex-shrink-0" />
+              </motion.div>
+              <div>
+                <motion.h3 
+                  className="text-lg font-bold text-amber-900 mb-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  Important Documents Needed
+                </motion.h3>
+                <motion.p 
+                  className="text-amber-800 mb-3"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  For faster processing of your claim or quote request, please have these documents ready:
+                </motion.p>
+                <motion.ul 
+                  className="text-sm text-amber-700 space-y-1"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  viewport={{ once: true }}
+                >
+                  <li>• Government-issued ID (Driver's License, Passport)</li>
+                  <li>• Social Security Number or Tax ID</li>
+                  <li>• Recent medical records (if applicable)</li>
+                  <li>• Current insurance policy information</li>
+                </motion.ul>
+              </div>
+            </div>
+          </motion.div>
+
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white rounded-xl p-8 shadow-lg">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
               
               {submitStatus === 'success' && (
-                <div data-testid="success-message" className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start">
+                <motion.div 
+                  data-testid="success-message" 
+                  className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start"
+                  initial={{ opacity: 0, scale: 0.9, y: -20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
                   <CheckCircle className="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" />
                   <p className="text-green-800">{submitMessage}</p>
-                </div>
+                </motion.div>
               )}
               
               {submitStatus === 'error' && (
-                <div data-testid="error-message" className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
+                <motion.div 
+                  data-testid="error-message" 
+                  className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start"
+                  initial={{ opacity: 0, scale: 0.9, y: -20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
                   <AlertCircle className="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" />
                   <p className="text-red-800">{submitMessage}</p>
-                </div>
+                </motion.div>
               )}
               
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div>
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    viewport={{ once: true }}
+                  >
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                       Full Name *
                     </label>
-                    <input
+                    <motion.input
                       type="text"
                       id="name"
                       data-testid="input-name"
                       {...register('name')}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       placeholder="Your full name"
+                      whileFocus={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
                     />
-                    {errors.name && <p data-testid="error-name" className="text-red-600 text-sm mt-1">{errors.name.message}</p>}
-                  </div>
-                  <div>
+                    {errors.name && (
+                      <motion.p 
+                        data-testid="error-name" 
+                        className="text-red-600 text-sm mt-1"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {errors.name.message}
+                      </motion.p>
+                    )}
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: true }}
+                  >
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                       Email Address *
                     </label>
-                    <input
+                    <motion.input
                       type="email"
                       id="email"
                       data-testid="input-email"
                       {...register('email')}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       placeholder="your@email.com"
+                      whileFocus={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
                     />
-                    {errors.email && <p data-testid="error-email" className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
-                  </div>
+                    {errors.email && (
+                      <motion.p 
+                        data-testid="error-email" 
+                        className="text-red-600 text-sm mt-1"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {errors.email.message}
+                      </motion.p>
+                    )}
+                  </motion.div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div>
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    viewport={{ once: true }}
+                  >
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                       Phone Number
                     </label>
-                    <input
+                    <motion.input
                       type="tel"
                       id="phone"
                       data-testid="input-phone"
                       {...register('phone')}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       placeholder="(800) 4BRIDGES"
+                      whileFocus={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
                     />
-                  </div>
-                  <div>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    viewport={{ once: true }}
+                  >
                     <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
                       Subject *
                     </label>
-                    <select
+                    <motion.select
                       id="subject"
                       data-testid="input-subject"
                       {...register('subject')}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                      whileFocus={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
                     >
                       <option value="">Select a subject</option>
                       <option value="life-insurance">Life Insurance</option>
@@ -270,35 +419,80 @@ export default function ContactPage() {
                       <option value="final-expense">Final Expense</option>
                       <option value="estate-planning">Estate Planning</option>
                       <option value="general-inquiry">General Inquiry</option>
-                    </select>
-                    {errors.subject && <p data-testid="error-subject" className="text-red-600 text-sm mt-1">{errors.subject.message}</p>}
-                  </div>
+                    </motion.select>
+                    {errors.subject && (
+                      <motion.p 
+                        data-testid="error-subject" 
+                        className="text-red-600 text-sm mt-1"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {errors.subject.message}
+                      </motion.p>
+                    )}
+                  </motion.div>
                 </div>
 
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                     Message *
                   </label>
-                  <textarea
+                  <motion.textarea
                     id="message"
                     data-testid="input-message"
                     {...register('message')}
                     rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
                     placeholder="Tell us how we can help you..."
-                  ></textarea>
-                  {errors.message && <p data-testid="error-message" className="text-red-600 text-sm mt-1">{errors.message.message}</p>}
-                </div>
+                    whileFocus={{ scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                  ></motion.textarea>
+                  {errors.message && (
+                    <motion.p 
+                      data-testid="error-message" 
+                      className="text-red-600 text-sm mt-1"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {errors.message.message}
+                    </motion.p>
+                  )}
+                </motion.div>
 
-                <button
+                <motion.button
                   type="submit"
                   disabled={submitStatus === 'loading'}
-                  className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Submit contact form"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02, boxShadow: "0 10px 25px rgba(59, 130, 246, 0.3)" }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    // Add ripple effect
+                    const button = event?.currentTarget as HTMLElement;
+                    const ripple = document.createElement('span');
+                    ripple.className = 'absolute inset-0 bg-white opacity-30 rounded-lg animate-ping';
+                    button.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                  }}
                 >
                   {submitStatus === 'loading' ? (
                     <>
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      <motion.div 
+                        className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      ></motion.div>
                       Sending...
                     </>
                   ) : (
@@ -307,7 +501,7 @@ export default function ContactPage() {
                       Send Message
                     </>
                   )}
-                </button>
+                </motion.button>
               </form>
             </div>
 

@@ -1,5 +1,6 @@
 import { ArrowLeft, Award, Users, Heart, Shield, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 
@@ -121,11 +122,23 @@ export default function Team() {
 
             <div className="flex items-center mb-6">
               <Users className="w-12 h-12 mr-4" />
-              <h1 className="text-4xl md:text-5xl font-bold">Meet Our Team</h1>
+              <motion.h1 
+                className="text-4xl md:text-5xl font-bold"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Meet Our Team
+              </motion.h1>
             </div>
-            <p className="text-xl text-blue-100 max-w-2xl">
+            <motion.p 
+              className="text-xl text-blue-100 max-w-2xl"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               Licensed professionals with over 70 combined years of experience, dedicated to protecting your family's future.
-            </p>
+            </motion.p>
           </div>
         </section>
 
@@ -173,19 +186,28 @@ export default function Team() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {teamMembers.map((member, index) => (
-                <article
+                <motion.article
                   key={member.slug}
                   id={member.slug}
                   className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                   role="article"
                   aria-labelledby={`member-name-${index}`}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
                 >
                   <div className="relative">
-                    <img
+                    <motion.img
                       src={member.image}
                       alt={`Professional headshot of ${member.name}, ${member.title} at 4 Bridges Insurance Company`}
                       className="w-full h-64 object-cover"
                       loading="lazy"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
+                      viewport={{ once: true }}
                     />
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
                       <span className="text-xs font-semibold text-gray-800 flex items-center">
@@ -199,19 +221,44 @@ export default function Team() {
 
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 id={`member-name-${index}`} className="text-xl font-bold text-gray-900">{member.name}</h3>
+                      <motion.h3 
+                        id={`member-name-${index}`} 
+                        className="text-xl font-bold text-gray-900"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
+                        viewport={{ once: true }}
+                      >
+                        {member.name}
+                      </motion.h3>
                       <div className="flex items-center">
                         <Shield className="w-5 h-5 text-green-600" aria-hidden="true" />
                         <span className="sr-only">Licensed Insurance Professional</span>
                       </div>
                     </div>
 
-                    <p className="text-blue-600 font-semibold mb-1">{member.title}</p>
+                    <motion.p 
+                      className="text-blue-600 font-semibold mb-1"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
+                      viewport={{ once: true }}
+                    >
+                      {member.title}
+                    </motion.p>
                     <p className="text-sm text-gray-600 mb-3">
                       {member.credentials} • {member.experience} experience
                     </p>
 
-                    <p className="text-gray-700 text-sm leading-relaxed mb-4">{member.bio}</p>
+                    <motion.p 
+                      className="text-gray-700 text-sm leading-relaxed mb-4"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
+                      viewport={{ once: true }}
+                    >
+                      {member.bio}
+                    </motion.p>
 
                     {/* Education & Languages */}
                     <div className="mb-4 p-3 bg-gray-50 rounded-lg">
@@ -261,7 +308,7 @@ export default function Team() {
                       </p>
                     </div>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
           </div>

@@ -1,8 +1,12 @@
 import { ArrowLeft, Shield, Heart, Users, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Layout from './Layout';
 import QuoteForm from './QuoteForm';
 import { ProductFAQ } from './ProductFAQ';
+import { FadeIn, AnimatedCard, TrueFocus } from './bits';
+import { staggerContainer, staggerItem } from '@/lib/animations';
+import { ReactNode } from 'react';
 
 interface ProductDetailProps {
   title: string;
@@ -12,6 +16,7 @@ interface ProductDetailProps {
   keyPoints: string[];
   benefits: string[];
   children?: React.ReactNode;
+  banner?: ReactNode;
 }
 
 export default function ProductDetail({
@@ -22,6 +27,7 @@ export default function ProductDetail({
   keyPoints,
   benefits,
   children,
+  banner,
 }: ProductDetailProps) {
   const navigate = useNavigate();
 
@@ -32,173 +38,237 @@ export default function ProductDetail({
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <button
+          <motion.button
             onClick={() => navigate('/')}
             className="inline-flex items-center text-blue-200 hover:text-white mb-6 transition-colors"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
-          </button>
+          </motion.button>
           
           <div className="flex items-center mb-6">
-            <div className="w-16 h-16 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+            <motion.div
+              className="w-16 h-16 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               <div className="text-white text-2xl">{icon}</div>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold">{title}</h1>
+            </motion.div>
+            <FadeIn duration={0.6} delay={0.2}>
+              <h1 className="text-4xl md:text-5xl font-bold">{title}</h1>
+            </FadeIn>
           </div>
           
-          <p className="text-xl text-blue-100 max-w-2xl">
-            Comprehensive {title.toLowerCase()} solutions designed to protect your family and secure your financial future.
-          </p>
+          <FadeIn duration={0.6} delay={0.3}>
+            <p className="text-xl text-blue-100 max-w-2xl">
+              Comprehensive {title.toLowerCase()} solutions designed to protect your family and secure your financial future.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
       {/* Main Content */}
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
+          {banner && <div className="mb-8">{banner}</div>}
+          
+          <motion.div
+            className="grid md:grid-cols-2 gap-12 mb-16"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {/* What Is Section */}
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <div className="flex items-center mb-4">
-                <Shield className="w-6 h-6 text-blue-600 mr-3" />
-                <h2 className="text-2xl font-bold text-gray-900">What Is {title}?</h2>
+            <AnimatedCard>
+              <div className="bg-white rounded-xl p-8 shadow-lg h-full">
+                <div className="flex items-center mb-4">
+                  <Shield className="w-6 h-6 text-blue-600 mr-3" />
+                  <h2 className="text-2xl font-bold text-gray-900">What Is {title}?</h2>
+                </div>
+                <p className="text-gray-600 leading-relaxed">{description}</p>
               </div>
-              <p className="text-gray-600 leading-relaxed">{description}</p>
-            </div>
+            </AnimatedCard>
 
             {/* Why Important Section */}
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <div className="flex items-center mb-4">
-                <Heart className="w-6 h-6 text-red-500 mr-3" />
-                <h2 className="text-2xl font-bold text-gray-900">Why Is {title} Important?</h2>
+            <AnimatedCard>
+              <div className="bg-white rounded-xl p-8 shadow-lg h-full">
+                <div className="flex items-center mb-4">
+                  <Heart className="w-6 h-6 text-red-500 mr-3" />
+                  <h2 className="text-2xl font-bold text-gray-900">Why Is {title} Important?</h2>
+                </div>
+                <div className="space-y-2">
+                  {whyImportant.map((point, index) => (
+                    <div key={index} className="flex items-start">
+                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                      <p className="text-gray-600">{point}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="space-y-2">
-                {whyImportant.map((point, index) => (
-                  <div key={index} className="flex items-start">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                    <p className="text-gray-600">{point}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+            </AnimatedCard>
+          </motion.div>
 
           {/* Key Points Section */}
-          <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
-            <div className="flex items-center mb-6">
-              <Users className="w-6 h-6 text-blue-600 mr-3" />
-              <h2 className="text-2xl font-bold text-gray-900">Key Points</h2>
+          <AnimatedCard>
+            <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
+              <div className="flex items-center mb-6">
+                <Users className="w-6 h-6 text-blue-600 mr-3" />
+                <FadeIn duration={0.5} delay={0.1}>
+                  <h2 className="text-2xl font-bold text-gray-900">Key Points</h2>
+                </FadeIn>
+              </div>
+              <motion.div
+                className="grid md:grid-cols-2 gap-4"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                {keyPoints.map((point, index) => (
+                  <motion.div key={index} className="flex items-start" variants={staggerItem}>
+                    <CheckCircle className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <p className="text-gray-600">{point}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {keyPoints.map((point, index) => (
-                <div key={index} className="flex items-start">
-                  <CheckCircle className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                  <p className="text-gray-600">{point}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          </AnimatedCard>
 
           {/* Benefits Section */}
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-8 mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Benefits</h2>
-            <div className="grid md:grid-cols-2 gap-4">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-start">
-                  <CheckCircle className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
-                  <p className="text-gray-700">{benefit}</p>
-                </div>
-              ))}
+          <TrueFocus delay={0.2}>
+            <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-8 mb-12">
+              <FadeIn duration={0.5} delay={0.1}>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Benefits</h2>
+              </FadeIn>
+              <motion.div
+                className="grid md:grid-cols-2 gap-4"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                {benefits.map((benefit, index) => (
+                  <motion.div key={index} className="flex items-start" variants={staggerItem}>
+                    <CheckCircle className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
+                    <p className="text-gray-700">{benefit}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
-          </div>
+          </TrueFocus>
 
           {/* Coverage Comparison Section */}
           <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Coverage Options</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors">
-                <div className="text-center mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">Basic</h3>
-                  <p className="text-3xl font-bold text-blue-600 mt-2">$99<span className="text-sm font-normal">/month</span></p>
-                </div>
-                <ul className="space-y-2 text-sm text-gray-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Essential coverage
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Basic benefits
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Customer support
-                  </li>
-                </ul>
-                <button className="w-full mt-4 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">
-                  Learn More
-                </button>
-              </div>
+            <FadeIn duration={0.5} delay={0.1}>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Coverage Options</h2>
+            </FadeIn>
+            <motion.div
+              className="grid md:grid-cols-3 gap-6"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.div variants={staggerItem}>
+                <AnimatedCard>
+                  <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors h-full">
+                    <div className="text-center mb-4">
+                      <h3 className="text-lg font-bold text-gray-900">Basic</h3>
+                      <p className="text-3xl font-bold text-blue-600 mt-2">$99<span className="text-sm font-normal">/month</span></p>
+                    </div>
+                    <ul className="space-y-2 text-sm text-gray-600">
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Essential coverage
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Basic benefits
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Customer support
+                      </li>
+                    </ul>
+                    <button className="w-full mt-4 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+                      Learn More
+                    </button>
+                  </div>
+                </AnimatedCard>
+              </motion.div>
 
-              <div className="border-2 border-blue-500 rounded-lg p-6 relative bg-blue-50">
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Most Popular</span>
-                </div>
-                <div className="text-center mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">Standard</h3>
-                  <p className="text-3xl font-bold text-blue-600 mt-2">$149<span className="text-sm font-normal">/month</span></p>
-                </div>
-                <ul className="space-y-2 text-sm text-gray-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Comprehensive coverage
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Advanced benefits
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Priority support
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Wellness programs
-                  </li>
-                </ul>
-                <button className="w-full mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-                  Get Quote
-                </button>
-              </div>
+              <motion.div variants={staggerItem}>
+                <AnimatedCard>
+                  <div className="border-2 border-blue-500 rounded-lg p-6 relative bg-blue-50 h-full">
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Most Popular</span>
+                    </div>
+                    <div className="text-center mb-4">
+                      <h3 className="text-lg font-bold text-gray-900">Standard</h3>
+                      <p className="text-3xl font-bold text-blue-600 mt-2">$149<span className="text-sm font-normal">/month</span></p>
+                    </div>
+                    <ul className="space-y-2 text-sm text-gray-600">
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Comprehensive coverage
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Advanced benefits
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Priority support
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Wellness programs
+                      </li>
+                    </ul>
+                    <button className="w-full mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                      Get Quote
+                    </button>
+                  </div>
+                </AnimatedCard>
+              </motion.div>
 
-              <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors">
-                <div className="text-center mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">Premium</h3>
-                  <p className="text-3xl font-bold text-blue-600 mt-2">$249<span className="text-sm font-normal">/month</span></p>
-                </div>
-                <ul className="space-y-2 text-sm text-gray-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Maximum coverage
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    Premium benefits
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    24/7 concierge support
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    VIP services
-                  </li>
-                </ul>
-                <button className="w-full mt-4 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">
-                  Learn More
-                </button>
-              </div>
-            </div>
+              <motion.div variants={staggerItem}>
+                <AnimatedCard>
+                  <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors h-full">
+                    <div className="text-center mb-4">
+                      <h3 className="text-lg font-bold text-gray-900">Premium</h3>
+                      <p className="text-3xl font-bold text-blue-600 mt-2">$249<span className="text-sm font-normal">/month</span></p>
+                    </div>
+                    <ul className="space-y-2 text-sm text-gray-600">
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Maximum coverage
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Premium benefits
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        24/7 concierge support
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        VIP services
+                      </li>
+                    </ul>
+                    <button className="w-full mt-4 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+                      Learn More
+                    </button>
+                  </div>
+                </AnimatedCard>
+              </motion.div>
+            </motion.div>
           </div>
 
           {/* Quote Form Section */}

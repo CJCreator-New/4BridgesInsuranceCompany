@@ -1,6 +1,7 @@
 import ProductDetail from '@/components/ProductDetail';
 import { CoverageCalculator } from '@/components/CoverageCalculator';
 import { Heart } from 'lucide-react';
+import { Typewriter, InfoBanner } from '@/components/bits';
 
 export default function LifeInsurance() {
   return (
@@ -26,9 +27,19 @@ export default function LifeInsurance() {
         'Funds children\'s education',
         'Covers final expenses and estate taxes',
       ]}
+      banner={
+        <InfoBanner
+          type="urgent"
+          message="Limited Time: Get 20% off your first year premium when you apply by December 31st!"
+        />
+      }
     >
       <div className="my-12">
-        <h3 className="text-2xl font-bold text-center mb-8">Calculate Your Coverage Needs</h3>
+        <Typewriter
+          text="Calculate Your Coverage Needs"
+          className="text-2xl font-bold text-center mb-8"
+          speed={50}
+        />
         <CoverageCalculator />
       </div>
     </ProductDetail>

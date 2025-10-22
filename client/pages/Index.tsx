@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import { StatsSection } from '@/components/StatsSection';
 import { TrustBadges } from '@/components/TrustBadges';
-import { TestimonialCarousel } from '@/components/TestimonialCarousel';
+import { EnhancedTestimonialCarousel } from '@/components/EnhancedTestimonialCarousel';
 import { LiveChatButton } from '@/components/LiveChatButton';
 import { BackToTop } from '@/components/BackToTop';
 import { ExitIntentPopup } from '@/components/ExitIntentPopup';
@@ -28,7 +28,7 @@ export default function Index() {
       <TrustBadges />
       <WhyChooseUs />
       <HowItWorks />
-      <TestimonialCarousel />
+      <EnhancedTestimonialCarousel />
       <About />
       <Products />
       <QuoteForm />

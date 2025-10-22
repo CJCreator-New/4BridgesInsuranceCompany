@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, Calendar, Clock, User, ArrowRight, Tag, Search, Share2, Facebook, Linkedin, Twitter, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
+import { Typewriter, AnimatedCard, FeaturedBadge, FadeIn } from '@/components/bits';
 
 interface BlogPost {
   id: string;
@@ -175,24 +177,34 @@ export default function Blog() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <button
+          <motion.button
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
             onClick={() => navigate('/')}
             className="inline-flex items-center text-blue-200 hover:text-white mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
-          </button>
+          </motion.button>
 
           <div className="flex items-center mb-6">
-            <div className="w-16 h-16 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="w-16 h-16 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4"
+            >
               <Tag className="w-8 h-8" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Insurance Insights</h1>
+            </motion.div>
+            <Typewriter text="Insurance Insights" className="text-4xl md:text-5xl font-bold" speed={80} />
           </div>
 
-          <p className="text-xl text-blue-100 max-w-2xl">
-            Expert advice, industry insights, and practical tips to help you make informed insurance decisions.
-          </p>
+          <FadeIn duration={0.6} delay={0.5}>
+            <p className="text-xl text-blue-100 max-w-2xl">
+              Expert advice, industry insights, and practical tips to help you make informed insurance decisions.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
@@ -200,11 +212,25 @@ export default function Blog() {
       {featuredPost && (
         <section className="py-16 px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Featured Article</h2>
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden post">
+            <FadeIn duration={0.5} delay={0.1}>
+              <h2 className="text-2xl font-bold text-gray-900 mb-8">Featured Article</h2>
+            </FadeIn>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-white rounded-xl shadow-lg overflow-hidden post relative"
+            >
+              <FeaturedBadge />
               <div className="md:flex">
-                <div className="md:w-1/2">
-                  <img
+                <div className="md:w-1/2 overflow-hidden">
+                  <motion.img
+                    initial={{ scale: 1.2 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    whileHover={{ scale: 1.05 }}
                     src={featuredPost.image}
                     alt={featuredPost.title}
                     className="w-full h-64 md:h-full object-cover"
@@ -293,7 +319,7 @@ export default function Blog() {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
       )}
@@ -348,28 +374,54 @@ export default function Blog() {
       {/* Blog Posts Grid */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Latest Articles</h2>
+          <FadeIn duration={0.5} delay={0.1}>
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">Latest Articles</h2>
+          </FadeIn>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${activeCategory}-${searchTerm}-${currentPage}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
             {currentPagePosts.length === 0 ? (
-              <div className="col-span-full bg-white rounded-xl shadow p-10 text-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+                className="col-span-full bg-white rounded-xl shadow p-10 text-center"
+              >
                 <p className="text-lg font-semibold text-gray-900 mb-2">No articles found</p>
                 <p className="text-sm text-gray-600">Try adjusting your search or selecting a different category.</p>
-              </div>
+              </motion.div>
             ) : (
-              currentPagePosts.map((post) => {
+              currentPagePosts.map((post, idx) => {
                 const profile = authorProfiles[post.author];
                 return (
-                  <article key={post.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" aria-labelledby={`post-${post.id}`}>
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-48 object-cover"
-                      loading="lazy"
-                    />
+                  <motion.div
+                    key={post.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                  >
+                    <AnimatedCard>
+                      <article className="bg-white rounded-xl shadow-lg overflow-hidden h-full" aria-labelledby={`post-${post.id}`}>
+                        <div className="overflow-hidden">
+                          <motion.img
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ duration: 0.4 }}
+                            src={post.image}
+                            alt={post.title}
+                            className="w-full h-48 object-cover"
+                            loading="lazy"
+                          />
+                        </div>
 
-                    <div className="p-6 space-y-4">
-                      <div className="flex items-center gap-2">
+                        <div className="p-6 space-y-4">
+                          <div className="flex items-center gap-2">
                         <span
                           className={`px-2 py-1 rounded-full text-xs font-medium ${
                             post.category === 'Life Insurance'
@@ -387,10 +439,15 @@ export default function Blog() {
                         </span>
                       </div>
 
-                      <div>
-                        <h3 id={`post-${post.id}`} className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{post.title}</h3>
-                        <p className="text-gray-600 line-clamp-3">{post.excerpt}</p>
-                      </div>
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                          >
+                            <h3 id={`post-${post.id}`} className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{post.title}</h3>
+                            <p className="text-gray-600 line-clamp-3">{post.excerpt}</p>
+                          </motion.div>
 
                       <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
                         <div className="flex items-center gap-1">
@@ -432,26 +489,29 @@ export default function Blog() {
                         </div>
                       </div>
 
-                      {profile && (
-                        <div className="border-t border-gray-100 pt-4 text-sm text-gray-600">
-                          <div className="font-semibold text-gray-900">{post.author}</div>
-                          <div className="text-xs uppercase tracking-wide text-blue-600 mt-1">{profile.role}</div>
-                          <p className="mt-1 text-sm">{profile.bio}</p>
-                          <a
-                            href={`/team#${profile.teamAnchor}`}
-                            className="mt-2 inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm"
-                          >
-                            View {post.author.split(' ')[0]}'s bio
-                            <ArrowRight className="ml-1 w-4 h-4" aria-hidden="true" />
-                          </a>
+                          {profile && (
+                            <div className="border-t border-gray-100 pt-4 text-sm text-gray-600">
+                              <div className="font-semibold text-gray-900">{post.author}</div>
+                              <div className="text-xs uppercase tracking-wide text-blue-600 mt-1">{profile.role}</div>
+                              <p className="mt-1 text-sm">{profile.bio}</p>
+                              <a
+                                href={`/team#${profile.teamAnchor}`}
+                                className="mt-2 inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm"
+                              >
+                                View {post.author.split(' ')[0]}'s bio
+                                <ArrowRight className="ml-1 w-4 h-4" aria-hidden="true" />
+                              </a>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  </article>
+                      </article>
+                    </AnimatedCard>
+                  </motion.div>
                 );
               })
             )}
-          </div>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Pagination */}
           {currentPagePosts.length > 0 && totalPages > 1 && (

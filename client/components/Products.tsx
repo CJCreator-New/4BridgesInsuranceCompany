@@ -1,5 +1,8 @@
 import ProductCard from './ProductCard';
 import { Heart, Target, Stethoscope, Building2, Shield, FileText } from 'lucide-react';
+import { FadeIn, AnimatedCard } from './bits';
+import { motion } from 'framer-motion';
+import { staggerContainer, staggerItem } from '@/lib/animations';
 
 export default function Products() {
   const products = [
@@ -41,7 +44,8 @@ export default function Products() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-30"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16 animate-fade-in">
+        <FadeIn duration={0.6} delay={0.1}>
+        <div className="text-center mb-16">
           <div className="inline-block mb-4 px-4 py-2 bg-blue-100 rounded-full">
             <span className="text-blue-600 font-semibold text-sm">OUR SOLUTIONS</span>
           </div>
@@ -52,18 +56,28 @@ export default function Products() {
             Discover comprehensive insurance solutions designed to protect your family and secure your financial future.
           </p>
         </div>
+        </FadeIn>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {products.map((product, index) => (
-            <ProductCard
-              key={index}
-              title={product.title}
-              icon={product.icon}
-              description={product.description}
-              index={index}
-            />
+            <motion.div key={index} variants={staggerItem}>
+              <AnimatedCard>
+                <ProductCard
+                  title={product.title}
+                  icon={product.icon}
+                  description={product.description}
+                  index={index}
+                />
+              </AnimatedCard>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <style>{`

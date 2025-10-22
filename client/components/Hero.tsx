@@ -1,6 +1,7 @@
 import OptimizedImage from './OptimizedImage';
 import { motion } from 'framer-motion';
 import { Play, ArrowRight, Shield, Users, TrendingUp } from 'lucide-react';
+import { FadeIn, ParticleBackground, RippleButton } from './bits';
 
 export default function Hero() {
   const scrollToSection = (id: string) => {
@@ -12,27 +13,30 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 md:py-24 px-4 overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-blue-300 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      </div>
+      <ParticleBackground color="#2155CD" count={50} />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Content */}
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-6">
+            <FadeIn duration={0.5} delay={0.1}>
             <div className="inline-flex items-center gap-2 bg-blue-500 bg-opacity-30 px-4 py-2 rounded-full text-sm font-semibold border border-blue-300">
               <Shield className="w-5 h-5" aria-hidden="true" />
               <span>Trusted Since 1998 | 50,000+ Families Protected</span>
             </div>
+            </FadeIn>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-pulse">
+            <FadeIn duration={0.6} delay={0.2}>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
               Protecting American Dreams—One Family at a Time
             </h1>
+            </FadeIn>
+            
+            <FadeIn duration={0.6} delay={0.3}>
             <p className="text-xl md:text-2xl text-blue-100 font-medium leading-relaxed max-w-3xl">
               For over 25 years, we've helped 50,000+ families across 15 states secure their financial future. Your peace of mind is our mission.
             </p>
+            </FadeIn>
             
             {/* Customer Story Highlight */}
             <motion.div 
@@ -74,35 +78,33 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons - Enhanced */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="pt-6 flex flex-col sm:flex-row gap-4 sm:gap-6"
-            >
-              <button
+            <FadeIn duration={0.6} delay={0.5}>
+            <div className="pt-6 flex flex-col sm:flex-row gap-4 sm:gap-6">
+              <RippleButton
+                color="#FDAF17"
+                textColor="#2155CD"
                 onClick={() => scrollToSection('contact')}
-                className="group relative bg-gradient-to-r from-yellow-400 via-orange-400 to-orange-500 text-blue-900 px-10 py-5 rounded-2xl font-bold text-xl hover:from-yellow-300 hover:via-orange-300 hover:to-orange-400 transition-all duration-300 shadow-2xl hover:shadow-yellow-300/60 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300 focus:ring-offset-2 transform hover:-translate-y-2 overflow-hidden"
-                aria-label="Get a free insurance quote now"
+                className="shadow-2xl"
               >
-                <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-                <span className="relative flex items-center justify-center gap-2">
-                  <Shield className="w-6 h-6" aria-hidden="true" />
+                <span className="flex items-center justify-center gap-2">
+                  <Shield className="w-6 h-6" />
                   Get Free Quote
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                  <ArrowRight className="w-5 h-5" />
                 </span>
-              </button>
-              <button
+              </RippleButton>
+              <RippleButton
+                color="rgba(255,255,255,0.1)"
+                textColor="#ffffff"
                 onClick={() => scrollToSection('products')}
-                className="group relative border-3 border-white bg-white/10 backdrop-blur-sm text-white px-10 py-5 rounded-2xl font-bold text-xl hover:bg-white hover:text-blue-600 transition-all duration-300 shadow-xl hover:shadow-white/40 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white focus:ring-offset-2 transform hover:-translate-y-2"
-                aria-label="View all insurance products"
+                className="border-2 border-white backdrop-blur-sm"
               >
                 <span className="flex items-center justify-center gap-2">
                   View Products
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                  <ArrowRight className="w-5 h-5" />
                 </span>
-              </button>
-            </motion.div>
+              </RippleButton>
+            </div>
+            </FadeIn>
             
             {/* Trust Indicators */}
             <motion.div

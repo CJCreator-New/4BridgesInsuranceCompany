@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FallingText } from './bits';
 
 const testimonials = [
   {
@@ -108,63 +110,116 @@ export function TestimonialCarousel() {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 px-6 py-3 rounded-full text-blue-900 font-bold text-lg mb-4 shadow-lg animate-pulse">
+          <motion.div
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, type: 'spring' }}
+            className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 px-6 py-3 rounded-full text-blue-900 font-bold text-lg mb-4 shadow-lg"
+          >
             <span role="img" aria-label="star">⭐</span> What Our Clients Say
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Real Stories, Real Results</h2>
-          <p className="text-gray-600 text-xl max-w-3xl mx-auto">
+          </motion.div>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <FallingText delay={0.1}>Real Stories,</FallingText>{' '}
+            <FallingText delay={0.2}>Real Results</FallingText>
+          </h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-gray-600 text-xl max-w-3xl mx-auto"
+          >
             Real stories from real families who've trusted us with their most important asset—their financial security
-          </p>
+          </motion.p>
         </div>
         
         <div className="max-w-5xl mx-auto relative">
-          <article 
-            className="bg-white rounded-3xl p-10 md:p-16 shadow-2xl border-2 border-gray-100 hover:shadow-3xl transition-all duration-500 hover:border-blue-200"
-            role="article"
-            aria-label={`Testimonial from ${testimonials[current].name}`}
-          >
-            <div className="flex mb-6" role="img" aria-label={`${testimonials[current].rating} star rating`}>
-              {[...Array(testimonials[current].rating)].map((_, i) => (
-                <Star key={i} className="w-7 h-7 text-yellow-400 fill-yellow-400" aria-hidden="true" />
-              ))}
-            </div>
-            
-            <blockquote className="text-2xl md:text-3xl text-gray-700 mb-8 italic leading-relaxed font-medium">
-              "{testimonials[current].text}"
-            </blockquote>
-            
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <img 
-                  src={testimonials[current].image}
-                  alt={`${testimonials[current].name} - satisfied ${testimonials[current].product} customer`}
-                  className="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-blue-200"
-                  loading="lazy"
-                />
-                <div>
-                  <p className="font-bold text-gray-900 text-xl mb-1">{testimonials[current].name}</p>
-                  <p className="text-base text-gray-600 font-medium">{testimonials[current].location} • {testimonials[current].product}</p>
-                </div>
-              </div>
+          <AnimatePresence mode="wait">
+            <motion.article
+              key={current}
+              initial={{ opacity: 0, x: 100, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -100, scale: 0.9 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-3xl p-10 md:p-16 shadow-2xl border-2 border-gray-100 hover:shadow-3xl transition-all duration-500 hover:border-blue-200"
+              role="article"
+              aria-label={`Testimonial from ${testimonials[current].name}`}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 0.3 }}
+                className="flex mb-6"
+                role="img"
+                aria-label={`${testimonials[current].rating} star rating`}
+              >
+                {[...Array(testimonials[current].rating)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.3 + i * 0.1, duration: 0.3 }}
+                  >
+                    <Star className="w-7 h-7 text-yellow-400 fill-yellow-400" aria-hidden="true" />
+                  </motion.div>
+                ))}
+              </motion.div>
               
-              <div className="flex gap-3">
-                <button
-                  onClick={prev}
-                  className="p-4 rounded-full bg-gradient-to-r from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300"
-                  aria-label="Previous testimonial"
-                >
-                  <ChevronLeft className="w-6 h-6 text-blue-600" aria-hidden="true" />
-                </button>
-                <button
-                  onClick={next}
-                  className="p-4 rounded-full bg-gradient-to-r from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300"
-                  aria-label="Next testimonial"
-                >
-                  <ChevronRight className="w-6 h-6 text-blue-600" aria-hidden="true" />
-                </button>
-              </div>
-            </div>
-          </article>
+              <motion.blockquote
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="text-2xl md:text-3xl text-gray-700 mb-8 italic leading-relaxed font-medium"
+              >
+                "{testimonials[current].text}"
+              </motion.blockquote>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+              >
+                <div className="flex items-center gap-4">
+                  <motion.img
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.6, duration: 0.4, type: 'spring' }}
+                    src={testimonials[current].image}
+                    alt={`${testimonials[current].name} - satisfied ${testimonials[current].product} customer`}
+                    className="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-blue-200"
+                    loading="lazy"
+                  />
+                  <div>
+                    <p className="font-bold text-gray-900 text-xl mb-1">{testimonials[current].name}</p>
+                    <p className="text-base text-gray-600 font-medium">{testimonials[current].location} • {testimonials[current].product}</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={prev}
+                    className="p-4 rounded-full bg-gradient-to-r from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
+                    aria-label="Previous testimonial"
+                  >
+                    <ChevronLeft className="w-6 h-6 text-blue-600" aria-hidden="true" />
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={next}
+                    className="p-4 rounded-full bg-gradient-to-r from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
+                    aria-label="Next testimonial"
+                  >
+                    <ChevronRight className="w-6 h-6 text-blue-600" aria-hidden="true" />
+                  </motion.button>
+                </div>
+              </motion.div>
+            </motion.article>
+          </AnimatePresence>
           
           <div className="flex justify-center gap-2 mt-6">
             {testimonials.map((_, i) => (

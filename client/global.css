@@ -118,3 +118,11 @@
     white-space: pre;
   }
 }
+
+/* Ripple button animation */
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

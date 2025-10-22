@@ -7,6 +7,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { EmailResultsButton } from '@/components/EmailResultsButton';
 import { Stethoscope } from 'lucide-react';
 import { useState } from 'react';
+import { FadeIn, InfoBanner } from '@/components/bits';
+import { EnhancedFormInput } from '@/components/EnhancedFormInput';
+import { motion } from 'framer-motion';
 
 export default function HealthInsurance() {
   const [age, setAge] = useState(35);
@@ -53,107 +56,121 @@ export default function HealthInsurance() {
         'Mental health and substance abuse coverage',
         'Maternity and newborn care included',
       ]}
+      banner={
+        <InfoBanner
+          type="info"
+          message="Open Enrollment Period: Apply for 2024 coverage through December 15th!"
+        />
+      }
     >
       <div className="my-12">
-        <h3 className="text-2xl font-bold text-center mb-8">Estimate Your Health Insurance Premium</h3>
-        <Card className="p-6 max-w-2xl mx-auto">
-          <div className="space-y-6" role="form" aria-labelledby="health-calculator-heading">
-            <h4 id="health-calculator-heading" className="text-lg font-semibold">Get a Premium Estimate</h4>
+        <FadeIn duration={0.6} delay={0.1}>
+          <h3 className="text-2xl font-bold text-center mb-8">Estimate Your Health Insurance Premium</h3>
+        </FadeIn>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <Card className="p-6 max-w-2xl mx-auto">
+            <div className="space-y-6" role="form" aria-labelledby="health-calculator-heading">
+              <h4 id="health-calculator-heading" className="text-lg font-semibold">Get a Premium Estimate</h4>
 
-            <div>
-              <Label htmlFor="health-age">Your Age</Label>
-              <Input
-                id="health-age"
-                type="number"
-                value={age}
-                onChange={(e) => setAge(Number(e.target.value))}
-                className="mt-2"
-                min="18"
-                max="100"
-                aria-describedby="age-help"
-              />
-              <p id="age-help" className="text-sm text-gray-600 mt-1">Age affects premium rates</p>
-            </div>
-
-            <div>
-              <Label htmlFor="zip-code">ZIP Code</Label>
-              <Input
-                id="zip-code"
-                type="text"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
-                className="mt-2"
-                placeholder="12345"
-                aria-describedby="zip-help"
-              />
-              <p id="zip-help" className="text-sm text-gray-600 mt-1">Location affects available plans and rates</p>
-            </div>
-
-            <div>
-              <Label htmlFor="coverage-type">Coverage Type</Label>
-              <Select value={coverageType} onValueChange={setCoverageType}>
-                <SelectTrigger className="mt-2" aria-describedby="coverage-help">
-                  <SelectValue placeholder="Select coverage type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="individual">Individual</SelectItem>
-                  <SelectItem value="family">Family</SelectItem>
-                  <SelectItem value="medicare">Medicare Supplement</SelectItem>
-                </SelectContent>
-              </Select>
-              <p id="coverage-help" className="text-sm text-gray-600 mt-1">Choose the type of coverage you need</p>
-            </div>
-
-            {coverageType === 'family' && (
               <div>
-                <Label htmlFor="household-size">Household Size</Label>
-                <Input
-                  id="household-size"
+                <EnhancedFormInput
+                  label="Your Age"
                   type="number"
-                  value={householdSize}
-                  onChange={(e) => setHouseholdSize(Number(e.target.value))}
-                  className="mt-2"
-                  min="2"
-                  max="10"
-                  aria-describedby="household-help"
+                  value={age.toString()}
+                  onChange={(e) => setAge(Number(e.target.value))}
+                  required
                 />
-                <p id="household-help" className="text-sm text-gray-600 mt-1">Number of people to cover</p>
+                <p className="text-sm text-gray-600 mt-1">Age affects premium rates</p>
               </div>
-            )}
 
-            <Button
-              onClick={calculate}
-              className="w-full"
-              disabled={!coverageType || !zipCode}
-              aria-describedby="health-calculate-help"
-            >
-              Estimate Premium
-            </Button>
-            <p id="health-calculate-help" className="text-sm text-gray-600 text-center">
-              Get an estimate for your health insurance premium
-            </p>
+              <div>
+                <EnhancedFormInput
+                  label="ZIP Code"
+                  type="text"
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
+                  placeholder="12345"
+                  required
+                />
+                <p className="text-sm text-gray-600 mt-1">Location affects available plans and rates</p>
+              </div>
 
-            {result && (
-              <div
-                className="mt-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-200 animate-in fade-in"
-                role="region"
-                aria-labelledby="health-results-heading"
+              <div>
+                <Label htmlFor="coverage-type">Coverage Type</Label>
+                <Select value={coverageType} onValueChange={setCoverageType}>
+                  <SelectTrigger className="mt-2" aria-describedby="coverage-help">
+                    <SelectValue placeholder="Select coverage type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="individual">Individual</SelectItem>
+                    <SelectItem value="family">Family</SelectItem>
+                    <SelectItem value="medicare">Medicare Supplement</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p id="coverage-help" className="text-sm text-gray-600 mt-1">Choose the type of coverage you need</p>
+              </div>
+
+              {coverageType === 'family' && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div>
+                    <EnhancedFormInput
+                      label="Household Size"
+                      type="number"
+                      value={householdSize.toString()}
+                      onChange={(e) => setHouseholdSize(Number(e.target.value))}
+                      required
+                    />
+                    <p className="text-sm text-gray-600 mt-1">Number of people to cover</p>
+                  </div>
+                </motion.div>
+              )}
+
+              <Button
+                onClick={calculate}
+                className="w-full"
+                disabled={!coverageType || !zipCode}
+                aria-describedby="health-calculate-help"
               >
-                <p id="health-results-heading" className="text-sm text-blue-800 mb-2">Estimated Premium:</p>
-                <p className="text-2xl font-bold text-blue-900" aria-label={`Monthly premium: ${result.monthly} dollars`}>
-                  ${result.monthly}/month
-                </p>
-                <p className="text-sm text-blue-700 mt-1" aria-label={`Annual premium: ${result.annual} dollars`}>
-                  (${result.annual.toLocaleString()}/year)
-                </p>
-                <p className="text-xs text-blue-600 mt-2">
-                  This is an estimate only. Actual rates vary by location, health status, and plan selection.
-                </p>
-                <EmailResultsButton results={{ coverage: result.monthly }} type="coverage" />
-              </div>
-            )}
-          </div>
-        </Card>
+                Estimate Premium
+              </Button>
+              <p id="health-calculate-help" className="text-sm text-gray-600 text-center">
+                Get an estimate for your health insurance premium
+              </p>
+
+              {result && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                  className="mt-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-200"
+                  role="region"
+                  aria-labelledby="health-results-heading"
+                >
+                  <p id="health-results-heading" className="text-sm text-blue-800 mb-2">Estimated Premium:</p>
+                  <p className="text-2xl font-bold text-blue-900" aria-label={`Monthly premium: ${result.monthly} dollars`}>
+                    ${result.monthly}/month
+                  </p>
+                  <p className="text-sm text-blue-700 mt-1" aria-label={`Annual premium: ${result.annual} dollars`}>
+                    (${result.annual.toLocaleString()}/year)
+                  </p>
+                  <p className="text-xs text-blue-600 mt-2">
+                    This is an estimate only. Actual rates vary by location, health status, and plan selection.
+                  </p>
+                  <EmailResultsButton results={{ coverage: result.monthly }} type="coverage" />
+                </motion.div>
+              )}
+            </div>
+          </Card>
+        </motion.div>
       </div>
     </ProductDetail>
   );

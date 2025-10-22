@@ -1,5 +1,6 @@
 import { ArrowLeft, Handshake, Award, Shield, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { CoverageMap } from '../components/CoverageMap';
@@ -107,12 +108,30 @@ export default function PartnersPage() {
           </button>
           
           <div className="flex items-center mb-6">
-            <Handshake className="w-12 h-12 mr-4" />
-            <h1 className="text-4xl md:text-5xl font-bold">Our Partners</h1>
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <Handshake className="w-12 h-12 mr-4" />
+            </motion.div>
+            <motion.h1
+              className="text-4xl md:text-5xl font-bold"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Our Partners
+            </motion.h1>
           </div>
-          <p className="text-xl text-blue-100 max-w-2xl">
+          <motion.p
+            className="text-xl text-blue-100 max-w-2xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
             We've partnered with industry-leading insurance carriers to bring you the best coverage options and competitive rates.
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -120,52 +139,214 @@ export default function PartnersPage() {
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Partnership Philosophy */}
-          <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Why Our Partnerships Matter</h2>
-            <p className="text-gray-600 leading-relaxed mb-6">
-              At 4 Bridges Insurance Company, we carefully select our carrier partners based on their financial strength, 
-              product innovation, and commitment to customer service. These partnerships allow us to offer you 
+          <motion.div
+            className="bg-white rounded-xl p-8 shadow-lg mb-12"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <motion.h2
+              className="text-3xl font-bold text-gray-900 mb-6"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              Why Our Partnerships Matter
+            </motion.h2>
+            <motion.p
+              className="text-gray-600 leading-relaxed mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              At 4 Bridges Insurance Company, we carefully select our carrier partners based on their financial strength,
+              product innovation, and commitment to customer service. These partnerships allow us to offer you
               a diverse portfolio of insurance solutions while ensuring the security and reliability you deserve.
-            </p>
-            
+            </motion.p>
+
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <Shield className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Financial Strength</h3>
-                <p className="text-gray-600 text-sm">All partners maintain high financial ratings and stability.</p>
-              </div>
-              <div className="text-center">
-                <Award className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Industry Recognition</h3>
-                <p className="text-gray-600 text-sm">Award-winning companies with proven track records.</p>
-              </div>
-              <div className="text-center">
-                <Star className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Customer Focus</h3>
-                <p className="text-gray-600 text-sm">Committed to exceptional customer service and claims handling.</p>
-              </div>
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <Shield className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                </motion.div>
+                <motion.h3
+                  className="text-lg font-semibold text-gray-900 mb-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  Financial Strength
+                </motion.h3>
+                <motion.p
+                  className="text-gray-600 text-sm"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  viewport={{ once: true }}
+                >
+                  All partners maintain high financial ratings and stability.
+                </motion.p>
+              </motion.div>
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <Award className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                </motion.div>
+                <motion.h3
+                  className="text-lg font-semibold text-gray-900 mb-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  viewport={{ once: true }}
+                >
+                  Industry Recognition
+                </motion.h3>
+                <motion.p
+                  className="text-gray-600 text-sm"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                  viewport={{ once: true }}
+                >
+                  Award-winning companies with proven track records.
+                </motion.p>
+              </motion.div>
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  viewport={{ once: true }}
+                >
+                  <Star className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                </motion.div>
+                <motion.h3
+                  className="text-lg font-semibold text-gray-900 mb-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                  viewport={{ once: true }}
+                >
+                  Customer Focus
+                </motion.h3>
+                <motion.p
+                  className="text-gray-600 text-sm"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.9 }}
+                  viewport={{ once: true }}
+                >
+                  Committed to exceptional customer service and claims handling.
+                </motion.p>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Partners Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             {partners.map((partner, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <motion.div
+                key={index}
+                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                viewport={{ once: true }}
+                whileHover={{
+                  scale: 1.05,
+                  y: -8,
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+                }}
+              >
                 <div className="text-center mb-4">
-                  <div className="w-24 h-16 mx-auto mb-3 flex items-center justify-center">
+                  <motion.div
+                    className="w-24 h-16 mx-auto mb-3 flex items-center justify-center"
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
+                    viewport={{ once: true }}
+                  >
                     <img
                       src={partner.logoUrl}
                       alt={partner.logoAlt}
                       className="max-h-16 object-contain"
                       loading="lazy"
                     />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900">{partner.name}</h3>
+                  </motion.div>
+                  <motion.h3
+                    className="text-xl font-bold text-gray-900"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    {partner.name}
+                  </motion.h3>
                 </div>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">{partner.description}</p>
-                
+                <motion.p
+                  className="text-gray-600 text-sm mb-4 leading-relaxed"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
+                  viewport={{ once: true }}
+                >
+                  {partner.description}
+                </motion.p>
+
                 {/* Credibility Information */}
-                <div className="border-t border-gray-200 pt-4 mb-4">
+                <motion.div
+                  className="border-t border-gray-200 pt-4 mb-4"
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  whileInView={{ opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.5 }}
+                  viewport={{ once: true }}
+                  style={{ transformOrigin: "left" }}
+                >
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                       <span className="font-semibold text-gray-900">A.M. Best Rating:</span>
@@ -182,121 +363,317 @@ export default function PartnersPage() {
                       <span className="text-gray-600 ml-1">{partner.customers}</span>
                     </div>
                   </div>
-                </div>
-                
-                <div className="border-t border-gray-200 pt-4">
+                </motion.div>
+
+                <motion.div
+                  className="border-t border-gray-200 pt-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.6 }}
+                  viewport={{ once: true }}
+                >
                   <h4 className="text-sm font-semibold text-gray-900 mb-2">Specialties:</h4>
                   <div className="flex flex-wrap gap-2">
                     {partner.specialties.map((specialty, idx) => (
-                      <span key={idx} className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                      <motion.span
+                        key={idx}
+                        className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: index * 0.1 + 0.7 + idx * 0.1
+                        }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.1 }}
+                      >
                         {specialty}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Partnership Benefits */}
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-8 mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Benefits of Our Partnership Network</h2>
+          <motion.div
+            className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-8 mb-12"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <motion.h2
+              className="text-3xl font-bold text-gray-900 mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              Benefits of Our Partnership Network
+            </motion.h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Competitive Rates</h4>
-                    <p className="text-gray-700 text-sm">Access to multiple carriers means better pricing options for you.</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Product Variety</h4>
-                    <p className="text-gray-700 text-sm">Comprehensive selection of insurance products and coverage options.</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Underwriting Flexibility</h4>
-                    <p className="text-gray-700 text-sm">Multiple underwriting approaches to find coverage for unique situations.</p>
-                  </div>
-                </div>
+                {[
+                  { title: "Competitive Rates", desc: "Access to multiple carriers means better pricing options for you." },
+                  { title: "Product Variety", desc: "Comprehensive selection of insurance products and coverage options." },
+                  { title: "Underwriting Flexibility", desc: "Multiple underwriting approaches to find coverage for unique situations." }
+                ].map((benefit, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex items-start"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <motion.div
+                      className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                      viewport={{ once: true }}
+                    ></motion.div>
+                    <div>
+                      <motion.h4
+                        className="font-semibold text-gray-900"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        {benefit.title}
+                      </motion.h4>
+                      <motion.p
+                        className="text-gray-700 text-sm"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        {benefit.desc}
+                      </motion.p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
               <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Claims Support</h4>
-                    <p className="text-gray-700 text-sm">Streamlined claims processes with dedicated support teams.</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Innovation</h4>
-                    <p className="text-gray-700 text-sm">Access to the latest insurance products and digital tools.</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Financial Security</h4>
-                    <p className="text-gray-700 text-sm">Peace of mind knowing your coverage is backed by financially strong companies.</p>
-                  </div>
-                </div>
+                {[
+                  { title: "Claims Support", desc: "Streamlined claims processes with dedicated support teams." },
+                  { title: "Innovation", desc: "Access to the latest insurance products and digital tools." },
+                  { title: "Financial Security", desc: "Peace of mind knowing your coverage is backed by financially strong companies." }
+                ].map((benefit, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex items-start"
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <motion.div
+                      className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                      viewport={{ once: true }}
+                    ></motion.div>
+                    <div>
+                      <motion.h4
+                        className="font-semibold text-gray-900"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        {benefit.title}
+                      </motion.h4>
+                      <motion.p
+                        className="text-gray-700 text-sm"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        {benefit.desc}
+                      </motion.p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Partner Case Studies */}
-          <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Partner Success Stories</h2>
+          <motion.div
+            className="bg-white rounded-xl p-8 shadow-lg mb-12"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <motion.h2
+              className="text-3xl font-bold text-gray-900 mb-6"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              Partner Success Stories
+            </motion.h2>
             <div className="grid gap-6 md:grid-cols-3">
-              {caseStudies.map((study) => (
-                <article key={study.title} className="border border-gray-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-lg transition-all duration-300" aria-labelledby={study.title.replace(/\s+/g, '-').toLowerCase()}>
-                  <div className="text-sm font-semibold text-blue-600 mb-2">{study.partner}</div>
-                  <h3 id={study.title.replace(/\s+/g, '-').toLowerCase()} className="text-lg font-bold text-gray-900 mb-3">{study.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed mb-4">{study.summary}</p>
-                  <ul className="space-y-2 text-sm text-gray-700">
-                    {study.metrics.map((metric) => (
-                      <li key={metric} className="flex items-start gap-2">
-                        <span aria-hidden="true" className="mt-1 h-2 w-2 rounded-full bg-blue-600"></span>
+              {caseStudies.map((study, index) => (
+                <motion.article
+                  key={study.title}
+                  className="border border-gray-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-lg transition-all duration-300"
+                  aria-labelledby={study.title.replace(/\s+/g, '-').toLowerCase()}
+                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.2,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  viewport={{ once: true }}
+                  whileHover={{
+                    scale: 1.03,
+                    y: -5,
+                    boxShadow: "0 15px 35px rgba(59, 130, 246, 0.15)"
+                  }}
+                >
+                  <motion.div
+                    className="text-sm font-semibold text-blue-600 mb-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 + 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    {study.partner}
+                  </motion.div>
+                  <motion.h3
+                    id={study.title.replace(/\s+/g, '-').toLowerCase()}
+                    className="text-lg font-bold text-gray-900 mb-3"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    {study.title}
+                  </motion.h3>
+                  <motion.p
+                    className="text-sm text-gray-600 leading-relaxed mb-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 + 0.4 }}
+                    viewport={{ once: true }}
+                  >
+                    {study.summary}
+                  </motion.p>
+                  <motion.ul
+                    className="space-y-2 text-sm text-gray-700"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 + 0.5 }}
+                    viewport={{ once: true }}
+                  >
+                    {study.metrics.map((metric, metricIndex) => (
+                      <motion.li
+                        key={metric}
+                        className="flex items-start gap-2"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          delay: index * 0.2 + 0.6 + metricIndex * 0.1
+                        }}
+                        viewport={{ once: true }}
+                      >
+                        <motion.span
+                          aria-hidden="true"
+                          className="mt-1 h-2 w-2 rounded-full bg-blue-600"
+                          initial={{ scale: 0 }}
+                          whileInView={{ scale: 1 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.2 + 0.7 + metricIndex * 0.1
+                          }}
+                          viewport={{ once: true }}
+                        ></motion.span>
                         <span>{metric}</span>
-                      </li>
+                      </motion.li>
                     ))}
-                  </ul>
-                </article>
+                  </motion.ul>
+                </motion.article>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Coverage Map */}
-          <div className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 rounded-2xl overflow-hidden mb-12">
+          <motion.div
+            className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 rounded-2xl overflow-hidden mb-12"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <CoverageMap />
-          </div>
+          </motion.div>
 
           {/* CTA Section */}
-          <div className="bg-white rounded-xl p-8 shadow-lg text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Find Your Perfect Coverage</h3>
-            <p className="text-gray-600 mb-6">Let us help you compare options from our trusted partners to find the best coverage for your needs.</p>
+          <motion.div
+            className="bg-white rounded-xl p-8 shadow-lg text-center"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <motion.h3
+              className="text-2xl font-bold text-gray-900 mb-4"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              Find Your Perfect Coverage
+            </motion.h3>
+            <motion.p
+              className="text-gray-600 mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              Let us help you compare options from our trusted partners to find the best coverage for your needs.
+            </motion.p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
+              <motion.button
                 onClick={() => navigate('/contact')}
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(59, 130, 246, 0.3)" }}
+                whileTap={{ scale: 0.95 }}
               >
                 Compare Quotes
-              </button>
-              <button 
+              </motion.button>
+              <motion.button
                 onClick={() => navigate('/contact')}
-                className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors"
+                className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, backgroundColor: "#2563eb", color: "#ffffff" }}
+                whileTap={{ scale: 0.95 }}
               >
                 Contact an Agent
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

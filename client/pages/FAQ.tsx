@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
 import { ArrowLeft, HelpCircle, Search, Video, MessageCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
 import { fadeInDown, fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
+import { FadeIn, AnimatedCard, RippleButton } from '@/components/bits';
 
 export default function FAQ() {
   const navigate = useNavigate();
@@ -138,25 +139,18 @@ export default function FAQ() {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </motion.button>
-            <motion.div 
-              className="flex items-center mb-6"
-              variants={fadeInDown}
-              initial="hidden"
-              animate="visible"
-            >
-              <HelpCircle className="w-12 h-12 mr-4" />
-              <h1 className="text-4xl md:text-5xl font-bold">Frequently Asked Questions</h1>
-            </motion.div>
+            <FadeIn duration={0.5} delay={0.1}>
+              <div className="flex items-center mb-6">
+                <HelpCircle className="w-12 h-12 mr-4" />
+                <h1 className="text-4xl md:text-5xl font-bold">Frequently Asked Questions</h1>
+              </div>
+            </FadeIn>
             <span className="sr-only">faq</span>
-            <motion.p 
-              className="text-xl text-blue-100"
-              variants={fadeInUp}
-              initial="hidden"
-              animate="visible"
-              transition={{ delay: 0.2 }}
-            >
-              Find answers to common insurance questions
-            </motion.p>
+            <FadeIn duration={0.5} delay={0.3}>
+              <p className="text-xl text-blue-100">
+                Find answers to common insurance questions
+              </p>
+            </FadeIn>
           </div>
         </section>
 
@@ -204,8 +198,11 @@ export default function FAQ() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: idx * 0.1, duration: 0.3 }}
               >
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">{category.category}</h2>
-                <Accordion type="single" collapsible className="bg-white rounded-xl shadow-lg">
+                <FadeIn duration={0.4} delay={idx * 0.05}>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">{category.category}</h2>
+                </FadeIn>
+                <AnimatedCard>
+                  <Accordion type="single" collapsible className="bg-white rounded-xl shadow-lg">
                   {category.questions.map((faq, i) => (
                     <AccordionItem key={i} value={`${idx}-${i}`}>
                       <AccordionTrigger className="px-6 text-left hover:bg-gray-50">
@@ -216,7 +213,8 @@ export default function FAQ() {
                       </AccordionContent>
                     </AccordionItem>
                   ))}
-                </Accordion>
+                  </Accordion>
+                </AnimatedCard>
               </motion.div>
             ))}
 
@@ -227,48 +225,39 @@ export default function FAQ() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
             >
-              <motion.div 
-                className="bg-white rounded-xl shadow p-6"
-                variants={staggerItem}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <MessageCircle className="w-8 h-8 text-blue-600" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold text-gray-900">Live Chat Support (Coming Soon)</h3>
+              <AnimatedCard>
+                <div className="bg-white rounded-xl shadow p-6 h-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <MessageCircle className="w-8 h-8 text-blue-600" aria-hidden="true" />
+                    <h3 className="text-lg font-semibold text-gray-900">Live Chat Support (Coming Soon)</h3>
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    We are finalizing a secure live-chat experience so you can connect with a licensed U.S. agent in under two minutes. Expect launch in Q1 2026 with full transcript downloads for compliance.
+                  </p>
                 </div>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  We are finalizing a secure live-chat experience so you can connect with a licensed U.S. agent in under two minutes. Expect launch in Q1 2026 with full transcript downloads for compliance.
-                </p>
-              </motion.div>
-              <motion.div 
-                className="bg-white rounded-xl shadow p-6"
-                variants={staggerItem}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <Video className="w-8 h-8 text-blue-600" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold text-gray-900">On-Demand Video Library</h3>
+              </AnimatedCard>
+              <AnimatedCard>
+                <div className="bg-white rounded-xl shadow p-6 h-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Video className="w-8 h-8 text-blue-600" aria-hidden="true" />
+                    <h3 className="text-lg font-semibold text-gray-900">On-Demand Video Library</h3>
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Our video walkthroughs covering claims filing, Medicare enrollment, and financial wellness are in production. Sign up for the newsletter to be notified when new education content drops.
+                  </p>
                 </div>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Our video walkthroughs covering claims filing, Medicare enrollment, and financial wellness are in production. Sign up for the newsletter to be notified when new education content drops.
-                </p>
-              </motion.div>
+              </AnimatedCard>
             </motion.div>
 
             <div className="bg-blue-50 rounded-xl p-8 text-center">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Still Have Questions?</h3>
               <p className="text-gray-600 mb-6">Our team is here to help. Contact us for personalized assistance.</p>
-              <motion.button
+              <RippleButton
                 onClick={() => navigate('/contact')}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                color="#2563eb"
               >
                 Contact Us
-              </motion.button>
+              </RippleButton>
             </div>
           </div>
         </section>
