@@ -46,7 +46,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename="/4BridgesInsuranceCompany">
           <Analytics />
           <Suspense fallback={<LoadingFallback />}>
           <Routes>
