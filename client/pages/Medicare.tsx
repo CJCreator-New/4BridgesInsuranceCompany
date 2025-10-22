@@ -11,7 +11,7 @@ import { useState } from 'react';
 export default function Medicare() {
   const [age, setAge] = useState(65);
   const [income, setIncome] = useState(50000);
-  const [supplementType, setSupplementType] = useState('');
+  const [supplementType, setSupplementType] = useState('none');
   const [result, setResult] = useState<{ partB: number; supplement: number; total: number } | null>(null);
 
   const calculate = () => {
