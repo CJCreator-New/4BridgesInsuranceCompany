@@ -24,11 +24,9 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10.14.0
 
       - name: Install pnpm (fallback)
-        run: npm install -g pnpm@10.14.0
+        run: npm install -g pnpm
         if: failure()
 
       - name: Setup Node.js
