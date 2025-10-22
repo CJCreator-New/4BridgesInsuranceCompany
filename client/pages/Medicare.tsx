@@ -1,5 +1,4 @@
 import ProductDetail from '@/components/ProductDetail';
-import SEO from '@/components/SEO';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -35,12 +34,6 @@ export default function Medicare() {
   };
 
   return (
-    <>
-    <SEO
-      title="Medicare Plans"
-      description="Navigate Medicare with confidence. Expert guidance on Parts A, B, C, D, Medigap supplements, and Medicare Advantage plans."
-      keywords="medicare, medicare plans, medigap, medicare advantage, part b, part d"
-    />
     <ProductDetail
       icon={<Building2 className="w-8 h-8" />}
       title="Medicare"
@@ -166,6 +159,5 @@ export default function Medicare() {
         </Card>
       </div>
     </ProductDetail>
-    </>
   );
 }

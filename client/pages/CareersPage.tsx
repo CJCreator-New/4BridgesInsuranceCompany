@@ -1,9 +1,12 @@
 import { ArrowLeft, Briefcase, Users, TrendingUp, Heart, DollarSign, Clock, Star, Award, Zap, Target, Globe } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { JobApplicationForm } from '../components/JobApplicationForm';
+import { FadeIn, AnimatedCard, RippleButton, AnimatedStats } from '@/components/bits';
+import { staggerContainer, staggerItem } from '@/lib/animations';
 
 export default function CareersPage() {
   const navigate = useNavigate();
@@ -125,49 +128,63 @@ export default function CareersPage() {
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-indigo-500 rounded-full blur-3xl opacity-20"></div>
         
         <div className="max-w-4xl mx-auto relative z-10">
-          <button
+          <motion.button
             onClick={() => navigate('/')}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
             className="inline-flex items-center text-blue-200 hover:text-white mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
-          </button>
+          </motion.button>
           
-          <div className="flex items-center mb-6">
-            <div className="p-3 bg-white/10 rounded-xl backdrop-blur-sm mr-4">
-              <Briefcase className="w-12 h-12" />
-            </div>
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-2">Join Our Team</h1>
-              <div className="flex items-center text-blue-200">
-                <Star className="w-4 h-4 mr-1 fill-current" />
-                <span className="text-sm font-medium">Rated #1 Workplace by Employees</span>
+          <FadeIn duration={0.5} delay={0.1}>
+            <div className="flex items-center mb-6">
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.5, type: 'spring' }}
+                className="p-3 bg-white/10 rounded-xl backdrop-blur-sm mr-4"
+              >
+                <Briefcase className="w-12 h-12" />
+              </motion.div>
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold mb-2">Join Our Team</h1>
+                <div className="flex items-center text-blue-200">
+                  <Star className="w-4 h-4 mr-1 fill-current" />
+                  <span className="text-sm font-medium">Rated #1 Workplace by Employees</span>
+                </div>
               </div>
             </div>
-          </div>
-          <p className="text-xl text-blue-100 max-w-2xl mb-8 leading-relaxed">
-            Build a rewarding career helping families secure their financial future while growing your own success in a supportive, inclusive environment.
-          </p>
+          </FadeIn>
+          <FadeIn duration={0.6} delay={0.3}>
+            <p className="text-xl text-blue-100 max-w-2xl mb-8 leading-relaxed">
+              Build a rewarding career helping families secure their financial future while growing your own success in a supportive, inclusive environment.
+            </p>
+          </FadeIn>
           
           {/* Quick stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-            <div className="text-center">
-              <div className="text-2xl font-bold mb-1">98%</div>
-              <div className="text-blue-200 text-sm">Employee Satisfaction</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold mb-1">15+</div>
-              <div className="text-blue-200 text-sm">Years Avg. Tenure</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold mb-1">50+</div>
-              <div className="text-blue-200 text-sm">Open Positions</div>
-            </div>
-            <div className="text-center">
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={staggerItem} className="text-center">
+              <AnimatedStats value={98} suffix="%" label="Employee Satisfaction" duration={1.5} />
+            </motion.div>
+            <motion.div variants={staggerItem} className="text-center">
+              <AnimatedStats value={15} suffix="+" label="Years Avg. Tenure" duration={1.5} />
+            </motion.div>
+            <motion.div variants={staggerItem} className="text-center">
+              <AnimatedStats value={50} suffix="+" label="Open Positions" duration={1.5} />
+            </motion.div>
+            <motion.div variants={staggerItem} className="text-center">
               <div className="text-2xl font-bold mb-1">24/7</div>
               <div className="text-blue-200 text-sm">Support Available</div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -210,9 +227,17 @@ export default function CareersPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <motion.div
+              className="grid md:grid-cols-3 gap-8"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
               {employeeStories.map((story, index) => (
-                <div key={index} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                <motion.div key={index} variants={staggerItem}>
+                  <AnimatedCard>
+                    <div className="bg-white rounded-xl p-6 shadow-lg h-full">
                   <div className="flex items-center mb-4">
                     <img
                       src={story.image}
@@ -235,12 +260,14 @@ export default function CareersPage() {
                     "{story.story}"
                   </blockquote>
 
-                  <div className="bg-blue-50 rounded-lg p-3">
-                    <p className="text-blue-800 text-sm font-medium">{story.highlight}</p>
-                  </div>
-                </div>
+                      <div className="bg-blue-50 rounded-lg p-3">
+                        <p className="text-blue-800 text-sm font-medium">{story.highlight}</p>
+                      </div>
+                    </div>
+                  </AnimatedCard>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Culture Highlights */}
@@ -252,20 +279,30 @@ export default function CareersPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <motion.div
+              className="grid md:grid-cols-3 gap-8"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
               {cultureHighlights.map((highlight, index) => (
-                <div key={index} className="text-center bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                <motion.div key={index} variants={staggerItem}>
+                  <AnimatedCard>
+                    <div className="text-center bg-white rounded-xl p-6 shadow-md h-full">
                   <div className="flex justify-center mb-4">
                     {highlight.icon}
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{highlight.title}</h3>
                   <p className="text-gray-600 mb-4">{highlight.description}</p>
-                  <div className="bg-gray-100 rounded-lg p-3">
-                    <p className="text-gray-800 font-semibold">{highlight.stats}</p>
-                  </div>
-                </div>
+                      <div className="bg-gray-100 rounded-lg p-3">
+                        <p className="text-gray-800 font-semibold">{highlight.stats}</p>
+                      </div>
+                    </div>
+                  </AnimatedCard>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Benefits */}
@@ -293,14 +330,23 @@ export default function CareersPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-1 gap-6" role="list" aria-label="Job openings">
+            <motion.div
+              className="grid md:grid-cols-1 gap-6"
+              role="list"
+              aria-label="Job openings"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
               {openPositions.map((position, index) => (
-                <article
-                  key={index}
-                  className={`bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-${position.color}-500 relative overflow-hidden`}
-                  role="listitem"
-                  aria-labelledby={`job-title-${index}`}
-                >
+                <motion.div key={index} variants={staggerItem}>
+                  <AnimatedCard>
+                    <article
+                      className={`bg-white rounded-xl p-6 shadow-lg border-l-4 border-${position.color}-500 relative overflow-hidden h-full`}
+                      role="listitem"
+                      aria-labelledby={`job-title-${index}`}
+                    >
                   {/* Background decoration */}
                   <div className={`absolute top-0 right-0 w-20 h-20 bg-${position.color}-100 rounded-full -mr-10 -mt-10 opacity-50`}></div>
 
@@ -347,22 +393,24 @@ export default function CareersPage() {
                       </div>
                     </div>
 
-                    <div className="md:ml-6 flex-shrink-0">
-                      <button
-                        onClick={() => {
-                          setSelectedPosition(position.title);
-                          setShowApplicationForm(true);
-                        }}
-                        className={`w-full md:w-auto bg-${position.color}-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-${position.color}-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-${position.color}-300`}
-                        aria-label={`Apply for ${position.title} position`}
-                      >
-                        Apply Now
-                      </button>
+                      <div className="md:ml-6 flex-shrink-0">
+                        <RippleButton
+                          onClick={() => {
+                            setSelectedPosition(position.title);
+                            setShowApplicationForm(true);
+                          }}
+                          color="#2563eb"
+                          aria-label={`Apply for ${position.title} position`}
+                        >
+                          Apply Now
+                        </RippleButton>
+                      </div>
                     </div>
-                  </div>
-                </article>
+                  </article>
+                </AnimatedCard>
+              </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Application Process */}
@@ -397,18 +445,18 @@ export default function CareersPage() {
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Start Your Career?</h3>
             <p className="text-gray-600 mb-6">Join our team and help families build bridges to financial security while building your own successful career.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
+              <RippleButton
                 onClick={() => navigate('/contact')}
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                color="#2563eb"
               >
                 View All Positions
-              </button>
-              <button 
+              </RippleButton>
+              <RippleButton
                 onClick={() => navigate('/contact')}
-                className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors"
+                color="transparent"
               >
                 Contact HR
-              </button>
+              </RippleButton>
             </div>
           </div>
         </div>
